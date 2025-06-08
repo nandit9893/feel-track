@@ -3,7 +3,8 @@ import HeroSection from "./Components/HeroSection";
 import HowItWorks from "./Components/HowItWorks";
 import Features from "./Components/Features";
 import LiveDemo from "./Components/LiveDemo";
-import Testinomials from "./Components/Testinomials";
+import Testimonials  from "./Components/Testimonials ";
+import CTASection from "./Components/CTASection";
 
 const page = () => {
   return (
@@ -12,7 +13,8 @@ const page = () => {
       <HowItWorks />
       <Features />
       <LiveDemo />
-      <Testinomials />
+      <Testimonials />
+      <CTASection />
     </div>
   );
 };
