@@ -1,8 +1,16 @@
+"use client";
 import React from "react";
 import { Facebook, Instagram, LinkedinIcon, Mail } from "lucide-react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+  const pathname = usePathname();
+  
+  if (pathname === "/auth/login" || pathname === "/auth/signup") {
+    return null;
+  };
+  
   return (
     <div className="w-full bg-black py-10">
       <div className="max-w-7xl mx-auto bg-gradient-to-bl from-pink-500 to-purple-500 rounded-tl-[100px] rounded-br-[100px] p-10 py-20">

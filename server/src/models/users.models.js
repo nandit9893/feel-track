@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema(
     refreshToken: {
       type: String,
     },
+    remainingTrials: {
+      type: Number,
+      default: 5,
+    },
   },
   {
     timestamps: true,
