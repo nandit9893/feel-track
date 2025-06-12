@@ -3,32 +3,10 @@ import React, { useState } from "react";
 import { FaNodeJs } from "react-icons/fa";
 import { TbWaveSawTool } from "react-icons/tb";
 import { RiRobot2Line } from "react-icons/ri";
-
-import {
-  SiNextdotjs,
-  SiTailwindcss,
-  SiRedux,
-  SiExpress,
-  SiMongodb,
-  SiCloudinary,
-  SiTensorflow,
-  SiPytorch,
-} from "react-icons/si";
+import { SiNextdotjs, SiTailwindcss, SiRedux, SiExpress, SiMongodb, SiCloudinary, SiTensorflow, SiPytorch } from "react-icons/si";
 import { AnimatePresence, motion } from "framer-motion";
 
-const Icons = {
-  SiNextdotjs,
-  SiTailwindcss,
-  SiRedux,
-  SiExpress,
-  SiMongodb,
-  SiCloudinary,
-  SiTensorflow,
-  SiPytorch,
-  FaNodeJs,
-  TbWaveSawTool,
-  RiRobot2Line,
-};
+const Icons = { SiNextdotjs, SiTailwindcss, SiRedux, SiExpress, SiMongodb, SiCloudinary, SiTensorflow, SiPytorch, FaNodeJs, TbWaveSawTool, RiRobot2Line};
 
 const tech_stack_left = [
   {
@@ -144,10 +122,7 @@ const TechStack = () => {
   const [activeTab, setActiveTab] = useState(1);
   const [hoveredTech, setHoveredTech] = useState(null);
 
-  const selectedTech = hoveredTech
-    ? hoveredTech
-    : tech_stack_left.find((stack) => stack._id === activeTab)
-        ?.description_points[0];
+  const selectedTech = hoveredTech ? hoveredTech : tech_stack_left.find((stack) => stack._id === activeTab) ?.description_points[0];
 
   const handleTabClick = (id) => {
     setActiveTab(id);
@@ -157,126 +132,52 @@ const TechStack = () => {
   return (
     <div className="w-full bg-gradient-to-br from-slate-700 to-black">
       <div className="max-w-7xl mx-auto flex flex-col gap-10 py-20 lg:px-0 px-10">
-        <h4 className="text-7xl font-semibold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">
-          Tech Stack
-        </h4>
+        <h4 className="text-7xl font-semibold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">Tech Stack</h4>
         <div className="flex gap-10 w-full items-center">
-          {/* Sidebar tabs unchanged */}
           <div className="w-1/4 bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl shadow-2xl border border-slate-100/30 overflow-hidden h-full">
-            {tech_stack_left.map((item, index) => (
-              <div
-                className={`relative flex items-center justify-between w-full p-6 cursor-pointer transition-all duration-300 group
-                            ${
-                              activeTab === item._id
-                                ? "bg-gradient-to-r from-purple-600/20 to-pink-600/20 border-l-4 border-purple-500"
-                                : "hover:bg-slate-700/50"
-                            }
-                            ${
-                              index !== tech_stack_left.length - 1
-                                ? "border-b border-slate-100/20"
-                                : ""
-                            }
-                        `}
-                key={item._id}
-                onClick={() => handleTabClick(item._id)}
-              >
-                <div className="flex items-center gap-4">
-                  <div
-                    className={`w-3 h-3 rounded-full transition-all duration-300 
-                                ${
-                                  activeTab === item._id
-                                    ? "bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg"
-                                    : "bg-slate-500 group-hover:bg-slate-400"
-                                }
-                            `}
-                  ></div>
-                  <p
-                    className={`font-medium text-2xl transition-all duration-300 
-                                ${
-                                  activeTab === item._id
-                                    ? "text-transparent bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text"
-                                    : "text-slate-200 group-hover:text-white"
-                                }
-                            `}
-                  >
-                    {item.name}
-                  </p>
+            {
+              tech_stack_left.map((item, index) => (
+                <div className={`relative flex items-center justify-between w-full p-6 cursor-pointer transition-all duration-300 group ${activeTab === item._id ? "bg-gradient-to-r from-purple-600/20 to-pink-600/20 border-l-4 border-purple-500" : "hover:bg-slate-700/50"} ${index !== tech_stack_left.length - 1 ? "border-b border-slate-100/20" : "" }`} key={item._id} onClick={() => handleTabClick(item._id)}>
+                  <div className="flex items-center gap-4">
+                    <div className={`w-3 h-3 rounded-full transition-all duration-300 ${activeTab === item._id ? "bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg" : "bg-slate-500 group-hover:bg-slate-400"}`}></div>
+                    <p className={`font-medium text-2xl transition-all duration-300 ${ activeTab === item._id ? "text-transparent bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text" : "text-slate-200 group-hover:text-white" }`}>{item.name}</p>
+                  </div>
+                  {
+                    activeTab === item._id && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 rounded-lg animate-pulse"></div>
+                    )
+                  }
                 </div>
-
-                {activeTab === item._id && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5 rounded-lg animate-pulse"></div>
-                )}
-              </div>
-            ))}
+              ))
+            }
           </div>
-
-          {/* Main tech stack grid with animations */}
           <div className="w-3/4 rounded-2xl shadow-2xl border border-slate-100/30 overflow-hidden h-80 flex flex-col">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 bg-black">
-              {tech_stack_left
-                .find((stack) => stack._id === activeTab)
-                ?.description_points.map((tech, index, arr) => {
+              {
+                tech_stack_left.find((stack) => stack._id === activeTab)?.description_points.map((tech, index, arr) => {
                   const IconComponent = Icons[tech.icon];
                   const isLastInRowLg = (index + 1) % 3 === 0;
-
                   const isHovered = hoveredTech?._id === tech._id;
-
                   return (
-                    <div
-                      key={tech._id}
-                      className={`flex flex-col items-center h-40 justify-center border-b bg-gradient-to-tr from-black to-slate-700 border-slate-100/30 p-6 relative group cursor-pointer transition-all duration-300
-          ${!isLastInRowLg ? "border-r" : ""}`}
-                      onMouseEnter={() => setHoveredTech(tech)}
-                      onMouseLeave={() => setHoveredTech(null)}
-                    >
-                      {/* Icon motion: moves up and fades out on hover */}
-                      <motion.div
-                        initial={{ y: 0, opacity: 1 }}
-                        animate={
-                          isHovered
-                            ? { y: -20, opacity: 0 }
-                            : { y: 0, opacity: 1 }
-                        }
-                        transition={{ duration: 0.3 }}
-                        className="text-5xl text-pink-500"
-                      >
+                    <div key={tech._id} className={`flex flex-col items-center h-40 justify-center border-b bg-gradient-to-tr from-black to-slate-700 border-slate-100/30 p-6 relative group cursor-pointer transition-all duration-300 ${!isLastInRowLg ? "border-r" : ""}`} onMouseEnter={() => setHoveredTech(tech)} onMouseLeave={() => setHoveredTech(null)}>
+                      <motion.div initial={{ y: 0, opacity: 1 }} animate={ isHovered ? { y: -20, opacity: 0 } : { y: 0, opacity: 1 }} transition={{ duration: 0.3 }} className="text-5xl text-pink-500">
                         <IconComponent />
                       </motion.div>
-
-                      {/* Name motion: moves up from below and fades in on hover */}
-                      <motion.h3
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={
-                          isHovered
-                            ? { y: 0, opacity: 1 }
-                            : { y: 20, opacity: 0 }
-                        }
-                        transition={{ duration: 0.3 }}
-                        className="text-2xl font-semibold text-white mb-2 absolute"
-                      >
-                        {tech.name}
-                      </motion.h3>
+                      <motion.h3 initial={{ y: 20, opacity: 0 }} animate={ isHovered ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 } } transition={{ duration: 0.3 }} className="text-2xl font-semibold text-white mb-2 absolute">{tech.name}</motion.h3>
                     </div>
                   );
-                })}
+                })
+              }
             </div>
-
-            {selectedTech && (
-              <div className="flex items-center w-full justify-center bg-gradient-to-tr from-slate-700 to-black flex-grow p-5">
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={selectedTech._id}
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: -20, opacity: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="text-white text-lg text-center"
-                  >
-                    {selectedTech.description}
-                  </motion.p>
-                </AnimatePresence>
-              </div>
-            )}
+            {
+              selectedTech && (
+                <div className="flex items-center w-full justify-center bg-gradient-to-tr from-slate-700 to-black flex-grow p-5">
+                  <AnimatePresence mode="wait">
+                    <motion.p key={selectedTech._id} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} transition={{ duration: 0.4 }} className="text-white text-lg text-center">{selectedTech.description}</motion.p>
+                  </AnimatePresence>
+                </div>
+              )
+            }
           </div>
         </div>
       </div>
