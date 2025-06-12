@@ -2,41 +2,76 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-const heading = "FEELTRACK";
+const hero_heading_1 = [
+  "Feel the music, powered by your emotions.",
+  "Your mood. Your music. Your moment.",
+  "Let your feelings choose the soundtrack."
+];
+const hero_heading_2 = ["Music that understands you.", "When emotions speak, music listens."];
 
 const AboutHeroSection = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [scaleOut, setScaleOut] = useState(false);
+  const [subIndexFirst, setSubIndexFirst] = useState(0);
+  const [deletingFirst, setDeletingFirst] = useState(false);
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+
+  const [subIndexSecond, setSubIndexSecond] = useState(0);
+  const [deletingSecond, setDeletingSecond] = useState(false);
+  const [currentPhraseIndexSecond, setCurrentPhraseIndexSecond] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setScaleOut(true);
+    const current = hero_heading_1[currentPhraseIndex];
+    if (!deletingFirst && subIndexFirst === current.length) {
+      const timeout = setTimeout(() => setDeletingFirst(true), 2000);
+      return () => clearTimeout(timeout);
+    }
+    if (deletingFirst && subIndexFirst === 0) {
+      setDeletingFirst(false);
+      setCurrentPhraseIndex((prev) => (prev + 1) % hero_heading_1.length);
+      return;
+    }
+    const timeout = setTimeout(() => {
+      setSubIndexFirst((prev) => prev + (deletingFirst ? -1 : 1));
+    }, deletingFirst ? 50 : 100);
 
-      setTimeout(() => {
-        setCurrentIndex((prev) =>
-          prev + 1 < heading.length ? prev + 1 : 0
-        );
-        setScaleOut(false);
-      }, 300);
-    }, 5000);
+    return () => clearTimeout(timeout);
+  }, [subIndexFirst, deletingFirst, currentPhraseIndex]);
 
-    return () => clearInterval(interval);
-  }, []);
-
+  useEffect(() => {
+    const current = hero_heading_2[currentPhraseIndexSecond];
+    if (!deletingSecond && subIndexSecond === current.length) {
+      const timeout = setTimeout(() => setDeletingSecond(true), 2000);
+      return () => clearTimeout(timeout);
+    }
+    if (deletingSecond && subIndexSecond === 0) {
+      setDeletingSecond(false);
+      setCurrentPhraseIndexSecond((prev) => (prev + 1) % hero_heading_2.length);
+      return;
+    }
+    const timeout = setTimeout(() => {
+      setSubIndexSecond((prev) => prev + (deletingSecond ? -1 : 1));
+    }, deletingSecond ? 50 : 100);
+    return () => clearTimeout(timeout);
+  }, [subIndexSecond, deletingSecond, currentPhraseIndexSecond]);
+  
   return (
     <div className="relative h-screen w-full overflow-hidden">
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 left-0 right-0 h-full bg-gradient-to-b from-green-950/90 via-green-900/90 to-black"></div>
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-800/25 via-green-900/15 to-transparent"></div>
       </div>
-      <div className="relative top-10 z-20 flex flex-col items-center justify-center h-full px-6 max-w-4xl mx-auto">
+      <div className="absolute left-20 top-32 w-md z-30">
+        <h1 className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent md:text-4xl font-semibold">{hero_heading_1[currentPhraseIndex].substring(0, subIndexFirst)}|</h1>
+      </div>
+      <div className="relative top-0 z-20 flex flex-col items-center justify-center h-full px-6 max-w-4xl mx-auto">
         <Image src="/about_hero_image.png" alt="FeelTrack Logo" width={500} height={500} className="w-full rounded-2xl" priority unoptimized quality={100} />
         <div className="absolute w-80 h-80 top-52 flex items-center justify-center">
           <div className="w-full h-full bg-black rounded-full flex flex-col items-center justify-center">
-            <h2  className={`text-8xl text-white font-semibold transition-transform duration-700 ${scaleOut ? "translate-x-0 opacity-100" : "translate-x-20 opacity-0"}`}>{heading[currentIndex]}</h2>
-            <Image src="/about_logo.png" alt="FeelTrack Logo" width={500} height={500} className="mt-10 w-24 rounded-2xl" priority unoptimized quality={100} />
+            <Image src="/about_logo.png" alt="FeelTrack Logo" width={500} height={500} className="mt-5 w-full rounded-2xl" priority unoptimized quality={100} />
           </div>
         </div>
+      </div>
+      <div className="absolute right-20 bottom-32 w-md z-30">
+        <h1 className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent md:text-4xl font-semibold">{hero_heading_2[currentPhraseIndexSecond].substring(0, subIndexSecond)}|</h1>
       </div>
       <svg className="absolute top-0 right-0 w-[600px] h-[600px] z-10" viewBox="0 0 400 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <defs>

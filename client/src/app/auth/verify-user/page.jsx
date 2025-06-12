@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 const VerifyUser = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { loading, error, showError, currentUser } = useSelector((state) => state.user); console.log(currentUser)
+  const { loading, error, showError, currentUser } = useSelector((state) => state.user);
   const [timeLeft, setTimeLeft] = useState(59);
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
 
