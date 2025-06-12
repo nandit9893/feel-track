@@ -8,7 +8,7 @@ import React from "react";
 const Header = () => {
   const pathname = usePathname();
 
-  if (pathname === "/auth/login" || pathname === "/auth/signup") {
+  if (pathname === "/auth/login" || pathname === "/auth/signup" || pathname === "/auth/verify-user" || pathname === "/auth/forgot-password") {
     return null;
   };
 

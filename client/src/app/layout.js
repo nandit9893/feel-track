@@ -1,6 +1,7 @@
 import "./globals.css";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
+import ReduxProvider from "./ReduxProvider";
 
 export const metadata = {
   title: "Create Next App",
@@ -11,9 +12,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="antialiased">
-        <Header />
-        {children}
-        <Footer />
+        <ReduxProvider>
+          <Header />
+          {children}
+          <Footer />
+        </ReduxProvider>
       </body>
     </html>
   );

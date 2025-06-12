@@ -5,7 +5,6 @@ import userVerification from "./verify.user.controllers.js";
 
 const signUp = async (req, res) => {
   const { fullName, email, password } = req.body;
-  const profileImageLocalPath = req.file?.path;
   if (!fullName || !fullName.trim()) {
     return res.status(400).json({
       success: false,
@@ -32,16 +31,10 @@ const signUp = async (req, res) => {
         message: "Account already exists",
       });
     }
-    let profile_pic = "";
-    if (profileImageLocalPath) {
-      const uploadResult = await uploadOnCloudinary(profileImageLocalPath);
-      profile_pic = uploadResult.secure_url || uploadResult.url;
-    }
     const newUser = await User.create({
       email,
       fullName,
       password,
-      profile_pic,
     });
     const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
       newUser._id
@@ -159,4 +152,79 @@ const logOut = async (req, res) => {
   }
 };
 
-export { signUp, logIn, logOut };
+const gooleSingUpSignIn = async (req, res) => {
+  const { fullName, email, profile_pic } = req.body;
+  if (!fullName?.trim()) {
+    return res.status(400).json({
+      success: false,
+      message: "Name is required",
+    });
+  }
+  if (!email?.trim()) {
+    return res.status(400).json({
+      success: false,
+      message: "Email is required",
+    });
+  }
+  try {
+    let user = await User.findOne({ email });
+    if (user) {
+      const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
+        user?._id
+      );
+      user.refreshToken = refreshToken;
+      await user.save({ validateBeforeSave: false });
+      const loggedInUser = await User.findById(user._id).select(
+        "-password -refreshToken"
+      );
+      res.clearCookie("jwt");
+      res.cookie("jwt", accessToken, {
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+      });
+      return res.status(200).json({
+        success: true,
+        message: "User logged in successfully",
+        data: loggedInUser,
+      });
+    }
+    const generatedPassword = `${fullName.trim().slice(0, 5)}123`;
+    const newUser = await User.create({
+      email,
+      fullName,
+      password: generatedPassword,
+      profile_pic: profile_pic || null,
+      isVerified: true,
+    });
+    const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
+      newUser._id
+    );
+    newUser.refreshToken = refreshToken;
+    await newUser.save({ validateBeforeSave: false });
+    const createdUser = await User.findById(newUser._id).select(
+      "-password -refreshToken"
+    );
+    res.clearCookie("jwt");
+    res.cookie("jwt", accessToken, {
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+    });
+    return res.status(201).json({
+      success: true,
+      message: "Account created successfully",
+      data: createdUser,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred while registering the user",
+      error: error.message,
+    });
+  }
+};
+
+export { signUp, logIn, logOut, gooleSingUpSignIn };

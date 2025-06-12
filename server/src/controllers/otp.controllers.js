@@ -39,22 +39,19 @@ const requestOTP = async (req, res) => {
 
 const verifyOTP = async (req, res) => {
   const { fullName, email, otp } = req.body;
+
   if (!otp || !email || !fullName) {
     return res.status(400).json({
       success: false,
-      message: "OTP, Name, and email are required.",
+      message: "Please fill in all required fields.",
     });
   }
   try {
-    const existingOTP = await OTP.findOne({
-      fullName,
-      email,
-      otp,
-    });
+    const existingOTP = await OTP.findOne({ fullName, email, otp });
     if (!existingOTP) {
       return res.status(404).json({
         success: false,
-        message: "OTP not found. Please request a new one.",
+        message: "The entered OTP is incorrect or does not exist.",
       });
     }
     const currentTime = new Date();
@@ -62,29 +59,37 @@ const verifyOTP = async (req, res) => {
       await OTP.deleteOne({ _id: existingOTP._id });
       return res.status(410).json({
         success: false,
-        message: "OTP has expired. Please request a new one.",
+        message: "Your OTP has expired. Please request a new one.",
       });
     }
-    if (existingOTP.otp === parseInt(otp)) {
-      await OTP.deleteOne({ _id: existingOTP._id });
-      const user = await User.findOne({ email });
-      user.isVerified = true;
-      await user.save();
-      return res.status(200).json({
-        success: true,
-        message: "OTP verification successful.",
-        data: user,
-      });
-    } else {
+    if (existingOTP.otp !== parseInt(otp)) {
       return res.status(400).json({
         success: false,
         message: "Invalid OTP. Please try again.",
       });
     }
+    await OTP.deleteOne({ _id: existingOTP._id });
+    const user = await User.findOne({ email }).select(
+      "-password -refreshToken"
+    );
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User account not found.",
+      });
+    }
+    user.isVerified = true;
+    await user.save();
+    return res.status(200).json({
+      success: true,
+      message: "OTP verified successfully. Your account is now active.",
+      data: user,
+    });
   } catch (error) {
+    console.error("OTP Verification Error:", error);
     return res.status(500).json({
       success: false,
-      message: "Internal server error.",
+      message: "Something went wrong. Please try again later.",
       error: error.message,
     });
   }

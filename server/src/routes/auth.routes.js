@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { logIn, logOut, signUp } from "../controllers/auth.controllers.js";
+import { gooleSingUpSignIn, logIn, logOut, signUp } from "../controllers/auth.controllers.js";
 import uploadProfileImage from "../middlewares/uploadProfile.middlewares.js";
 import { requestOTP, verifyOTP } from "../controllers/otp.controllers.js";
 import verifyUserJWT from "../middlewares/auth.middlewares.js";
@@ -11,5 +11,6 @@ authRouter.route("/login").post(logIn);
 authRouter.route("/logout").post(verifyUserJWT, logOut);
 authRouter.route("/request/otp").post(requestOTP);
 authRouter.route("/verify/otp").post(verifyOTP);
+authRouter.route("/google/sign").post(gooleSingUpSignIn);
 
 export default authRouter;
