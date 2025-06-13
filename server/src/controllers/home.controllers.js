@@ -1,4 +1,10 @@
-import { Feature, Hero, HowItWorks } from "../models/home.models.js";
+import {
+  AboutPlan,
+  CTA,
+  Feature,
+  Hero,
+  HowItWorks,
+} from "../models/home.models.js";
 import {
   uploadOnCloudinary,
   deleteFromCloudinary,
@@ -162,7 +168,7 @@ const features = async (req, res) => {
 };
 
 const getFeatures = async (req, res) => {
-    try {
+  try {
     const featuresData = await Feature.findOne({ type: "features" });
     if (!featuresData) {
       return res.status(404).json({
@@ -182,8 +188,182 @@ const getFeatures = async (req, res) => {
       error: error.message,
     });
   }
-}
+};
 
-const cta = async (req, res) => {};
+const cta = async (req, res) => {
+  try {
+    const { description, title, url } = req.body;
+    const imageLocalPath = req.file?.path;
+    let existingCTA = await CTA.findOne({ type: "call-to-action" });
+    if (!existingCTA) {
+      existingCTA = new CTA({ type: "call-to-action" });
+    }
+    if (description) existingCTA.description = description;
+    if (title) existingCTA.button.title = title;
+    if (url) existingCTA.button.url = url;
+    if (imageLocalPath) {
+      if (existingCTA.imageURL) {
+        await deleteFromCloudinary(existingCTA.imageURL);
+      }
+      const uploadResult = await uploadOnCloudinary(imageLocalPath);
+      existingCTA.imageURL = uploadResult.secure_url || uploadResult.url;
+    }
+    await existingCTA.save();
+    return res.status(200).json({
+      success: true,
+      message: "CTA section saved successfully",
+      data: existingCTA,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred while updating the CTA section",
+      error: error.message,
+    });
+  }
+};
 
-export { hero, howItWorks, features, cta, getHero, getHowItWorks, getFeatures };
+const getCta = async (req, res) => {
+  try {
+    const ctaData = await CTA.findOne({ type: "call-to-action" });
+    if (!ctaData) {
+      return res.status(404).json({
+        success: false,
+        message: "How It Works section not found",
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "CTA section fetched successfully",
+      data: ctaData,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch CTA data",
+      error: error.message,
+    });
+  }
+};
+
+const aboutPlan = async (req, res) => {
+  try {
+    const {
+      firstSubHeading,
+      secondSubHeading,
+      description,
+      title,
+      subheading,
+      url,
+      descriptionTitle,
+      imageType,
+    } = req.body;
+    const imageLocalPath = req.file?.path;
+    let existingAboutPlan = await AboutPlan.findOne({ type: "about-plan" });
+    if (!existingAboutPlan) {
+      existingAboutPlan = new AboutPlan({ type: "about-plan" });
+    }
+    let uploadResult = null;
+    if (imageLocalPath && imageType) {
+      uploadResult = await uploadOnCloudinary(imageLocalPath);
+      if (imageType === "points") {
+        const existingImageURL =
+          existingAboutPlan.descriptionPoints[0]?.imageURL;
+        if (existingImageURL) {
+          const publicId = extractPublicId(existingImageURL);
+          await deleteFromCloudinary(publicId);
+        }
+        if (descriptionTitle) {
+          existingAboutPlan.descriptionPoints.push({
+            title: descriptionTitle,
+            imageURL: uploadResult.url,
+          });
+          existingAboutPlan.descriptionPoints =
+            existingAboutPlan.descriptionPoints.map((point) => ({
+              title: point.title,
+              imageURL: uploadResult.url,
+            }));
+        }
+      } else if (imageType === "banner") {
+        if (existingAboutPlan.imageURL) {
+          await deleteFromCloudinary(existingAboutPlan.imageURL);
+        }
+        existingAboutPlan.imageURL = uploadResult.url;
+      } else if (imageType === "music") {
+        if (existingAboutPlan.button.imageURL) {
+          await deleteFromCloudinary(existingAboutPlan.button.imageURL);
+        }
+        existingAboutPlan.button.imageURL = uploadResult.url;
+      }
+    }
+    if (firstSubHeading)
+      existingAboutPlan.heading.firstSubHeading = firstSubHeading;
+    if (secondSubHeading)
+      existingAboutPlan.heading.secondSubHeading = secondSubHeading;
+    if (description) existingAboutPlan.description = description;
+    if (title) existingAboutPlan.button.title = title;
+    if (subheading) existingAboutPlan.button.subheading = subheading;
+    if (url) existingAboutPlan.button.url = url;
+    if (descriptionTitle && imageType !== "points") {
+      let sharedImageURL =
+        existingAboutPlan.descriptionPoints[0]?.imageURL || "";
+      existingAboutPlan.descriptionPoints.push({
+        title: descriptionTitle,
+        imageURL: sharedImageURL,
+      });
+      existingAboutPlan.descriptionPoints =
+        existingAboutPlan.descriptionPoints.map((point) => ({
+          title: point.title,
+          imageURL: sharedImageURL,
+        }));
+    }
+    await existingAboutPlan.save();
+    return res.status(200).json({
+      success: true,
+      message: "About Plan section saved successfully",
+      data: existingAboutPlan,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred while updating the about section",
+      error: error.message,
+    });
+  }
+};
+
+const getAboutPlan = async (req, res) => {
+  try {
+    const aboutPlanData = await AboutPlan.findOne({ type: "about-plan" });
+    if (!aboutPlanData) {
+      return res.status(404).json({
+        success: false,
+        message: "About Plan data not found",
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "About Plan data fetched successfully",
+      data: aboutPlanData,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred while fetching About Plan data",
+      error: error.message,
+    });
+  }
+};
+
+export {
+  hero,
+  howItWorks,
+  features,
+  cta,
+  getHero,
+  getHowItWorks,
+  getFeatures,
+  getCta,
+  aboutPlan,
+  getAboutPlan,
+};

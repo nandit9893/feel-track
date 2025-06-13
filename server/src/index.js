@@ -4,19 +4,12 @@ import app from "./app.js";
 
 dotenv.config();
 
-let isConnected = false;
-
-export default async function handler(req, res) {
-  if (!isConnected) {
-    try {
-      await connectDB();
-      isConnected = true;
-    } catch (err) {
-      console.error("DB connection failed", err);
-      res.status(500).send("DB connection failed");
-      return;
-    }
-  }
-
-  return app(req, res);
-}
+connectDB()
+  .then(() => {
+    app.listen(process.env.PORT, () => {
+      console.log(`Server is running at port : ${process.env.PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("Monogo db conncection failed !!!", err);
+  });

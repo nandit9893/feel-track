@@ -86,14 +86,74 @@ const ctaSchema = new mongoose.Schema(
       default: "call-to-action",
       unique: true,
     },
-    heading: String,
+    description: {
+      type: String,
+      default:
+        "Feel your vibe, scan your soul, and let AI compose your soundtrack 🎧✨ — where emotion meets music, like never before.",
+    },
     button: {
-      title: String,
-      url: String,
+      title: {
+        type: String,
+        default: "Subcribe",
+      },
+      url: {
+        type: String,
+        default: "/",
+      },
     },
     imageURL: String,
   },
   { timestamps: true }
+);
+
+const aboutPlanSchema = new mongoose.Schema(
+  {
+    type: {
+      type: String,
+      default: "about-plan",
+      unique: true,
+    },
+    heading: {
+      firstSubHeading: {
+        type: String,
+        default: "Ready to tune your mind with",
+      },
+      secondSubHeading: {
+        type: String,
+        default: "Music Therapy?",
+      },
+    },
+    description: {
+      type: String,
+      default:
+        "Experience calm, focus, and emotional clarity with personalized music therapy. Let AI analyze your mood and recommend tracks thathelp you heal, reflect, and thrive.",
+    },
+    button: {
+      title: {
+        type: String,
+        default: "Start Your Journey",
+      },
+      subheading: {
+        type: String,
+        default: "Cancel anytime. No stress, just harmony.",
+      },
+      url: {
+        type: String,
+        default: "/",
+      },
+      imageURL: String,
+    },
+    descriptionPoints: [
+      {
+        imageURL: String,
+        title: String,
+      },
+    ],
+    imageURL: String,
+  },
+  {
+    timestamps: true,
+  }
 );
 
 const Hero = mongoose.models.Hero || mongoose.model("Hero", heroSchema);
@@ -102,5 +162,7 @@ const HowItWorks =
 const Feature =
   mongoose.models.Feature || mongoose.model("Feature", featureSchema);
 const CTA = mongoose.models.CTA || mongoose.model("CTA", ctaSchema);
+const AboutPlan =
+  mongoose.models.AboutPlan || mongoose.model("AboutPlan", aboutPlanSchema);
 
-export { Hero, HowItWorks, Feature, CTA };
+export { Hero, HowItWorks, Feature, CTA, AboutPlan };
