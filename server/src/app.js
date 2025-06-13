@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRouter from "./routes/auth.routes.js";
+import homeRouter from "./routes/home.routes.js";
 
 const app = express();
 
@@ -21,5 +22,6 @@ app.use(express.static("/public"));
 app.use(cookieParser());
 
 app.use("/api/auth", authRouter);
+app.use("/api/home", homeRouter);
 
 export default app;

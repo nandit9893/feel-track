@@ -47,9 +47,8 @@ const Header = () => {
           <div className="flex items-center gap-5">
             <Link href="/" className="text-white text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">Home</Link>
             <Link href="/about" className="text-white text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">About</Link>
-            <Link href="/" className="text-white text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">Vision</Link>
-            <Link href="/" className="text-white text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">Features</Link>
-            <Link href="/" className="text-white text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">Try Now</Link>
+            <Link href="/features" className="text-white text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">Features</Link>
+            <Link href="/pricing" className="text-white text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">Pricing</Link>
           </div>
           <div className="flex items-center gap-3">
             {

@@ -42,9 +42,10 @@ const CTASection = () => {
             </div>
             <div className="flex flex-col gap-3 w-full">
               <div className="p-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl w-80">
-                <button className="flex items-center justify-center bg-black w-full rounded-xl">
-                  <p className="cursor-pointer px-6 py-3 text-lg font-semibold text-white">Start Your Journey</p>
-                  <LuAudioWaveform className="text-pink-500 w-6 h-6" />
+                <button className="cursor-pointer relative overflow-hidden flex items-center justify-center bg-black w-full rounded-xl group">
+                  <p className="px-6 py-3 text-lg font-semibold text-white z-10">Start Your Journey</p>
+                  <LuAudioWaveform className="text-pink-500 w-6 h-6 z-10" />
+                  <div className="code-rain absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none"></div>
                 </button>
               </div>
               <p className="text-sm text-gray-400">Cancel anytime. No stress, just harmony.</p>
