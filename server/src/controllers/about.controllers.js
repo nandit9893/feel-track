@@ -1,4 +1,4 @@
-import { AboutHero } from "../models/about.models.js";
+import { AboutHero, AboutTechStack } from "../models/about.models.js";
 import {
   uploadOnCloudinary,
   deleteFromCloudinary,
@@ -89,8 +89,99 @@ const getAboutHero = async (req, res) => {
   }
 };
 
-const aboutTechStack = async (req, res) => {};
+const aboutTechStack = async (req, res) => {
+  try {
+    const { heading, techName, skillName, skillDescription } = req.body;
+    const techIcon = req.file?.path;
+    let existingTech = await AboutTechStack.findOne({ type: "tech-stack" });
+    if (!existingTech) {
+      existingTech = new AboutTechStack({ type: "tech-stack" });
+    }
+    if (heading) existingTech.heading = heading;
+    if (techName) {
+      if (!skillName && !skillDescription) {
+        return res.status(409).json({
+          success: false,
+          message:
+            "At least one skill (name or description) is required to add to a tech stack.",
+        });
+      }
+      if (skillName && !techIcon) {
+        return res.status(400).json({
+          success: false,
+          message: "Skill icon is required when skill name is provided.",
+        });
+      }
+      let techURL = "";
+      if (techIcon) {
+        const uploadResult = await uploadOnCloudinary(techIcon);
+        techURL = uploadResult?.url || uploadResult?.secure_url;
+      }
+      const existingCategory = existingTech.stack_categories.find(
+        (category) => category.name.toLowerCase() === techName.toLowerCase()
+      );
+      if (existingCategory) {
+        const duplicateSkill = existingCategory.description_points.find(
+          (point) => point.name.toLowerCase() === skillName?.toLowerCase()
+        );
+        if (duplicateSkill) {
+          return res.status(400).json({
+            success: false,
+            message: `Skill "${skillName}" already exists in "${techName}" category.`,
+          });
+        }
+        existingCategory.description_points.push({
+          name: skillName || "",
+          icon: techURL,
+          description: skillDescription || "",
+        });
+      } else {
+        existingTech.stack_categories.push({
+          name: techName,
+          description_points: [
+            {
+              name: skillName || "",
+              icon: techURL,
+              description: skillDescription || "",
+            },
+          ],
+        });
+      }
+    }
+    await existingTech.save();
+    return res.status(200).json({
+      success: true,
+      message: "Tech stack updated successfully.",
+      data: existingTech,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
 
-const getAboutTechStack = async (req, res) => {};
+const getAboutTechStack = async (req, res) => {
+  try {
+    const techStack = await AboutTechStack.findOne({ type: "tech-stack" });
+    if (!techStack) {
+      return res.status(404).json({
+        success: false,
+        message: "Tech stack not found.",
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Tech stack fetched successfully.",
+      data: techStack,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
 
 export { aboutHero, getAboutHero, aboutTechStack, getAboutTechStack };

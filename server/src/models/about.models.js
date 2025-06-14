@@ -44,12 +44,12 @@ const aboutTechStackSchema = new mongoose.Schema(
     },
     stack_categories: [
       {
-        name: { type: String, required: true },
+        name: { type: String },
         description_points: [
           {
-            name: { type: String, required: true },
-            icon: { type: String, required: true },
-            description: { type: String, required: true },
+            name: { type: String },
+            icon: { type: String },
+            description: { type: String },
           },
         ],
       },

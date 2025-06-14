@@ -19,6 +19,22 @@ const getAboutHeroSectinData = async () => {
   }
 };
 
+const getAboutTechStackSectinData = async () => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/about/get/tech`,
+      { next: { revalidate: 300 } }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to about tech stack data");
+    }
+    const data = await response.json();
+    return data?.data || [];
+  } catch (error) {
+    return [];
+  }
+};
+
 const getCTASectionData = async () => {
   try {
     const response = await fetch(
@@ -57,13 +73,14 @@ const getAboutPlanSectionData = async () => {
 
 const AboutPage = async () => {
   const heroData = await getAboutHeroSectinData();
+  const techStackData = await getAboutTechStackSectinData();
   const ctaData = await getCTASectionData();
   const aboutPlanData = await getAboutPlanSectionData();
 
   return (
     <div>
       <AboutHeroSection heroData={heroData} />
-      <TechStack />
+      <TechStack techStackData={techStackData} />
       <CTASection ctaData={ctaData} aboutPlanData={aboutPlanData} />
     </div>
   );

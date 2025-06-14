@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logOut, logoutUserFailure, logoutUserStart, logoutUserSuccess } from "../Redux/User/UserSlice";
 import { persistor } from "../Redux/Store";
 
-const Header = () => {
+const Header = ({ headerData }) => {
   const dispatch = useDispatch();
   const { loading, error, showError, currentUser } = useSelector((state) => state.user); 
   const pathname = usePathname();
@@ -42,13 +42,14 @@ const Header = () => {
       <div className="bg-[#111827] mx-auto p-3 px-8 my-5 max-w-5xl border border-white rounded-full hidden lg:block overflow-hidden">
         <div className="flex justify-between w-full items-center">
           <Link href="/">
-            <Image src="/feel-track.png" alt="FeelTrack Logo" width={500} height={500} className="w-12 h-12 rounded-2xl" priority unoptimized quality={100} />
+            <Image src={headerData?.logo} alt="FeelTrack Logo" width={500} height={500} className="w-12 h-12 rounded-2xl" priority unoptimized quality={100} />
           </Link>
           <div className="flex items-center gap-5">
-            <Link href="/" className="text-white text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">Home</Link>
-            <Link href="/about" className="text-white text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">About</Link>
-            <Link href="/features" className="text-white text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">Features</Link>
-            <Link href="/pricing" className="text-white text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">Pricing</Link>
+            {
+              headerData?.middleMenuLinks?.map((item) => (
+                <Link key={item?._id} href={item?.url} className="text-white text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">{item?.name}</Link>
+              ))
+            }
           </div>
           <div className="flex items-center gap-3">
             {
