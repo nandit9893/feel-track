@@ -5,6 +5,7 @@ import authRouter from "./routes/auth.routes.js";
 import homeRouter from "./routes/home.routes.js";
 import aboutRouter from "./routes/about.routes.js";
 import webRouter from "./routes/web.routes.js";
+import pricingRouter from "./routes/pricing.routes.js";
 
 const app = express();
 
@@ -27,5 +28,6 @@ app.use("/api/auth", authRouter);
 app.use("/api/home", homeRouter);
 app.use("/api/about", aboutRouter);
 app.use("/api/web", webRouter);
+app.use("/api/pricing", pricingRouter);
 
 export default app;
