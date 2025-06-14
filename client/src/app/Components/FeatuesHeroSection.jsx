@@ -1,6 +1,6 @@
 import React from "react";
 
-const FeatuesHeroSection = () => {
+const FeatuesHeroSection = ({ featuresHeroData }) => {
   return (
     <div className="w-full bg-black">
       <div className="relative overflow-hidden h-screen">
@@ -10,8 +10,8 @@ const FeatuesHeroSection = () => {
         </div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
           <div className="flex flex-col gap-10 w-full items-center justify-center mt-20">
-            <h2 className="text-7xl font-semibold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">Our core features</h2>
-            <p className="text-white font-medium text-2xl max-w-3xl text-center">FeelTrack blends cutting-edge machine learning with deep emotional intelligence to deliver a truly personalized music experience. From retina-based emotion detection to real-time voice cloning, our features are designed to understand how you feel — and help you heal through music that resonates with your mood.</p>
+            <h2 className="text-7xl font-semibold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">{featuresHeroData?.heading}</h2>
+            <p className="text-gray-300 font-normal text-2xl max-w-3xl text-center leading-[37px]">{featuresHeroData?.description}</p>
           </div>
         </div>
       </div>

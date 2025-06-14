@@ -17,7 +17,7 @@ const CTASection = ({ ctaData, aboutPlanData }) => {
       </div>
       <div className="max-w-5xl mx-auto">
         <div className="flex justify-between w-full gap-10">
-          <motion.div initial={{ opacity: 0, x: -100 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} className="flex flex-col gap-8 w-1/2 justify-center">
+          <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} className="flex flex-col gap-8 w-1/2 justify-center">
             <div className="w-full">
               <h2 className="text-4xl font-bold text-white">{aboutPlanData?.heading?.firstSubHeading}{" "}
                 <span className="text-pink-500">{aboutPlanData?.heading?.secondSubHeading}</span>
@@ -45,7 +45,7 @@ const CTASection = ({ ctaData, aboutPlanData }) => {
               <p className="text-sm text-gray-400">{aboutPlanData?.button?.subheading}</p>
             </div>
           </motion.div>
-          <motion.div initial={{ opacity: 0, x: 100 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} className="h-full w-1/2 flex flex-col gap-10">
+          <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} className="h-full w-1/2 flex flex-col gap-10">
             <div className="w-full h-full p-1 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 overflow-hidden">
               <Image src={aboutPlanData?.imageURL} alt="FeelTrack Logo" width={500} height={500} className="rounded-xl w-full" priority unoptimized quality={100} />
             </div>

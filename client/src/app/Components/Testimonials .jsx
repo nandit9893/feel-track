@@ -135,10 +135,10 @@ const Testimonials = () => {
               <motion.p key={currentTestimonial._id} custom={direction} variants={variants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.2 }} className="text-3xl font-medium edu-cursive text-white leading-[57px]">"{currentTestimonial.description}"</motion.p>
             </AnimatePresence>
           </div>
-          <motion.div initial={{ opacity: 0, x: -100 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} onClick={handleLeft} className="absolute -left-10 top-1/2 w-14 h-14 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 flex items-center justify-center">
+          <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} onClick={handleLeft} className="absolute -left-10 top-1/2 w-14 h-14 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 flex items-center justify-center">
             <ChevronLeft className="text-white w-10 h-10 cursor-pointer" />
           </motion.div>
-          <motion.div initial={{ opacity: 0, x: 100 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} onClick={handleRight} className="absolute -right-10 top-1/2 w-14 h-14 rounded-2xl bg-gradient-to-r from-pink-300 to-purple-500 flex items-center justify-center">
+          <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} onClick={handleRight} className="absolute -right-10 top-1/2 w-14 h-14 rounded-2xl bg-gradient-to-r from-pink-300 to-purple-500 flex items-center justify-center">
             <ChevronRight className="text-white w-10 h-10 cursor-pointer" />
           </motion.div>
           <div className="absolute -bottom-14 left-1/2 transform -translate-x-1/2 w-28 h-28 p-2 bg-black rounded-full overflow-hidden">
@@ -152,7 +152,7 @@ const Testimonials = () => {
         <div className="flex gap-5 w-full items-center justify-center">
           {
             firstHalf.map((item, index) => (
-              <motion.div initial={{ opacity: 0, x: -100 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} onClick={() => handleLeftAvatar(index)} className="w-16 h-16 rounded-full cursor-pointer" key={item._id}>
+              <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} onClick={() => handleLeftAvatar(index)} className="w-16 h-16 rounded-full cursor-pointer" key={item._id}>
                 <div className="p-1 rounded-full bg-gradient-to-r from-pink-500 to-purple-600">
                   <Image src={item.image} alt={item.name} width={500} height={500} className="w-full h-full rounded-full object-cover" priority unoptimized quality={100} />
                 </div>
@@ -166,7 +166,7 @@ const Testimonials = () => {
           </div>
           {
             secondHalf.map((item, index) => (
-              <motion.div initial={{ opacity: 0, x: 100 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} onClick={() => handleRightAvatar(index + firstHalf.length)} className="w-16 h-16 rounded-full cursor-pointer" key={item._id}>
+              <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} onClick={() => handleRightAvatar(index + firstHalf.length)} className="w-16 h-16 rounded-full cursor-pointer" key={item._id}>
                 <div className="p-1 rounded-full bg-gradient-to-r from-pink-500 to-purple-600">
                   <Image src={item.image} alt={item.name} width={500} height={500} className="w-full h-full rounded-full object-cover" priority unoptimized quality={100} />
                 </div>
