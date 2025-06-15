@@ -10,10 +10,10 @@ const HeroSection = () => {
         <div className="absolute inset-0 z-0">
           <div className="absolute top-0 left-0 right-0 h-full bg-gradient-to-br from-black via-[#B8860B] to-black"></div>
         </div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-          <div className="flex flex-col gap-10 w-full items-center justify-center mt-20">
-            <h2 className="text-7xl font-semibold text-white text-center leading-[100px]">Simple & Transparent{" "}<span className="bg-gradient-to-r p-1 from-[#FFB606] to-black">Pricing</span></h2>
-            <p className="text-white font-medium text-2xl max-w-3xl text-center">Start your journey with 5 free emotion-powered song sessions. Upgrade to premium for unlimited personalized music, voice playback, and full emotional wellness features — all for just{" "}<span className="text-[#FFD700] font-semibold">$20/month</span>.</p>
+        <div className="relative top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+          <div className="flex flex-col gap-10 w-full mx-auto items-center justify-center mt-20 lg:px-0 px-5 md:px-10">
+            <h2 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-white text-center leading-relaxed md:leading-[100px]">Simple & Transparent{" "}<span className="bg-gradient-to-r p-1 from-[#FFB606] to-black">Pricing</span></h2>
+            <p className="text-white font-normal md:font-medium text-lg sm:text-xl md:text-2xl max-w-3xl text-center">Start your journey with 5 free emotion-powered song sessions. Upgrade to premium for unlimited personalized music, voice playback, and full emotional wellness features — all for just{" "}<span className="text-[#FFD700] font-semibold">$20/month</span>.</p>
           </div>
         </div>
       </div>
@@ -38,7 +38,7 @@ const PricingPlans = ({ pricingData }) => {
             <p onClick={() => setActiveCurrentPlan("monthly")} className="relative z-10 p-2 px-5 cursor-pointer rounded-full text-white transition-colors duration-300">Monthly</p>
             <p onClick={() => setActiveCurrentPlan("yearly")} className="relative z-10 p-2 px-5 cursor-pointer rounded-full text-white transition-colors duration-300">Yearly</p>
           </div>
-          <div className="grid grid-cols-3 w-full gap-10 h-full mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full gap-10 h-full mb-20 lg:px-0 px-5 md:px-10">
             {
               pricingData?.map((item, index) => (
                 <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: "easeOut", delay: index * 0.5 }}  viewport={{ once: false, amount: 0.2 }} className="w-full p-1 cursor-pointer rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 h-full" key={index}>
@@ -46,7 +46,7 @@ const PricingPlans = ({ pricingData }) => {
                     <p className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text text-xl font-semibold">{item?.planName}</p>
                     <p className="text-gray-700 text-center text-sm font-medium">{item?.description}</p>
                     <AnimatePresence mode="wait">
-                      <motion.div key={acitveCurrentPlan} initial={{ 1: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} transition={{ duration: 0.2 }} className="flex items-center">
+                      <motion.div key={acitveCurrentPlan} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} transition={{ duration: 0.2 }} className="flex items-center">
                         <p className="text-3xl font-semibold text-black">$</p>
                         <p className="text-6xl font-semibold text-black">{acitveCurrentPlan === "monthly" ? `${item?.monthlyPrice}` : `${item?.yearlyPrice}`}</p>
                         <p className="text-6xl font-normal text-gray-800">/</p>

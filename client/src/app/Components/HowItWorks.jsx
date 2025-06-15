@@ -12,8 +12,8 @@ const HowItWorks = ({ howItWorksData }) => {
         <div className="absolute top-0 left-0 right-0 h-full bg-gradient-to-b from-purple-900/20 via-black to-black"></div>
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-transparent to-transparent"></div>
       </div>
-      <div className="flex flex-col gap-10 max-w-7xl mx-auto justify-center relative z-10 h-full py-20 lg:px-0 px-10">
-        <h4 className="text-7xl font-semibold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">{howItWorksData?.heading}</h4>
+      <div className="flex flex-col gap-10 max-w-7xl mx-auto justify-center relative z-10 h-full py-20 lg:px-0 px-5 md:px-10">
+        <h4 className="text-5xl md:text-6xl lg:text-7xl font-semibold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">{howItWorksData?.heading}</h4>
         <div className="flex flex-col gap-5 w-full items-center justify-center">
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-full gap-10">
             {

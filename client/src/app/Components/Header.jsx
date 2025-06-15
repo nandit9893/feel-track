@@ -1,15 +1,16 @@
 "use client";
-import { LogOut, Menu, User } from "lucide-react";
+import { LogOut, Menu, User, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut, logoutUserFailure, logoutUserStart, logoutUserSuccess } from "../Redux/User/UserSlice";
 import { persistor } from "../Redux/Store";
 
 const Header = ({ headerData }) => {
   const dispatch = useDispatch();
+  const [isSideBarOpenMobile, setIsSideBarOpenMobile] = useState(false);
   const { loading, error, showError, currentUser } = useSelector((state) => state.user); 
   const pathname = usePathname();
 
@@ -39,15 +40,15 @@ const Header = ({ headerData }) => {
     <header className="fixed top-0 left-0 w-full z-50">
 
       {/* for laptop */}
-      <div className="bg-[#111827] mx-auto p-3 px-8 my-5 max-w-5xl border border-white rounded-full hidden lg:block overflow-hidden">
+      <div className="bg-[#111827] mx-auto p-2 lg:p-3 px-8 my-5 w-3xl lg:w-5xl border border-white rounded-full hidden md:block overflow-hidden">
         <div className="flex justify-between w-full items-center">
           <Link href="/">
-            <Image src={headerData?.logo} alt="FeelTrack Logo" width={500} height={500} className="w-12 h-12 rounded-2xl" priority unoptimized quality={100} />
+            <Image src={headerData?.logo} alt="FeelTrack Logo" width={500} height={500} className="w-8 lg:w-12 h-8 lg:h-12 rounded-2xl" priority unoptimized quality={100} />
           </Link>
           <div className="flex items-center gap-5">
             {
               headerData?.middleMenuLinks?.map((item) => (
-                <Link key={item?._id} href={item?.url} className="text-white text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">{item?.name}</Link>
+                <Link key={item?._id} href={item?.url} className="text-white text-base lg:text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">{item?.name}</Link>
               ))
             }
           </div>
@@ -79,11 +80,11 @@ const Header = ({ headerData }) => {
               : 
               (
                 <>
-                  <Link href="/auth/login" className="group relative overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-2.5 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
+                  <Link href="/auth/login" className="group relative overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-1 lg:py-2.5 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
                     <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <span className="relative text-sm font-medium">Login</span>
                   </Link>
-                  <Link href="/auth/signup" className="relative overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2.5 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/40 hover:from-purple-600 hover:to-pink-600">
+                  <Link href="/auth/signup" className="relative overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-1 lg:py-2.5 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/40 hover:from-purple-600 hover:to-pink-600">
                     <span className="text-sm font-medium">Sign Up</span>
                   </Link>
                 </>
@@ -94,10 +95,27 @@ const Header = ({ headerData }) => {
       </div>
 
        {/* for mobile */}
-       <div className="bg-[#111827] w-xs md:w-3xl sm:w-xl mx-auto my-5 rounded-full lg:hidden block overflow-hidden">
+       <div className="bg-[#111827] w-sm sm:w-xl mx-auto my-5 rounded-full md:hidden block overflow-hidden border border-white">
         <div className="flex justify-between w-full items-center py-2 px-5">
           <Image src="/feel-track.png" alt="FeelTrack Logo" width={500} height={500} className="w-10 rounded-full" priority unoptimized quality={100} />
-          <Menu className="w-6 h-6 text-pink-500" />
+          <Menu onClick={()=>setIsSideBarOpenMobile(true)} className="w-8 h-8 text-pink-500 cursor-pointer" />
+        </div>
+        <div className={`w-full sm:w-sm h-screen bg-black fixed top-0 left-0 z-50 shadow-lg flex flex-col p-10 gap-5 transition-all duration-300 ${ isSideBarOpenMobile ? "translate-x-0" : "-translate-x-full"}`}>
+          <div className="flex justify-end w-full">
+            <X onClick={()=>setIsSideBarOpenMobile(false)} className="w-8 h-8 transition-transform duration-300 hover:rotate-180 text-pink-500 cursor-pointer" />
+          </div>
+          {
+            headerData?.middleMenuLinks?.map((item) => (
+              <Link key={item?._id} href={item?.url} className="text-white text-base lg:text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">{item?.name}</Link>
+            ))
+          }
+          <Link href="/auth/login" className="w-20 group relative overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-1 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <span className="relative text-sm font-medium">Login</span>
+          </Link>
+          <Link href="/auth/signup" className="w-28 relative overflow-hidden bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-1 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/40 hover:from-purple-600 hover:to-pink-600">
+            <span className="text-sm font-medium">Sign Up</span>
+          </Link>
         </div>
        </div>
     </header>
