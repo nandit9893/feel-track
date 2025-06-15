@@ -86,7 +86,6 @@ const verifyOTP = async (req, res) => {
       data: user,
     });
   } catch (error) {
-    console.error("OTP Verification Error:", error);
     return res.status(500).json({
       success: false,
       message: "Something went wrong. Please try again later.",

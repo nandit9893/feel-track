@@ -1,5 +1,4 @@
 import User from "../models/users.models.js";
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import generateAccessAndRefreshToken from "../utils/generatAccessRefreshToken.js";
 import userVerification from "./verify.user.controllers.js";
 

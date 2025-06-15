@@ -7,6 +7,7 @@ import aboutRouter from "./routes/about.routes.js";
 import webRouter from "./routes/web.routes.js";
 import pricingRouter from "./routes/pricing.routes.js";
 import featureRouter from "./routes/feature.routes.js";
+import adminRouter from "./routes/admin.routes.js";
 
 const app = express();
 
@@ -31,5 +32,6 @@ app.use("/api/about", aboutRouter);
 app.use("/api/web", webRouter);
 app.use("/api/pricing", pricingRouter);
 app.use("/api/feature", featureRouter);
+app.use("/api/admin", adminRouter);
 
 export default app;

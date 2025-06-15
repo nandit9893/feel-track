@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
 const HeroSection = () => {
@@ -45,15 +45,18 @@ const PricingPlans = ({ pricingData }) => {
                   <div className="bg-white flex flex-col gap-5 p-5 w-full rounded-xl items-center h-full">
                     <p className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text text-xl font-semibold">{item?.planName}</p>
                     <p className="text-gray-700 text-center text-sm font-medium">{item?.description}</p>
-                    <div className="flex items-center">
-                      <p className="text-3xl font-semibold text-black">$</p>
-                      <p className="text-6xl font-semibold text-black">{item?.monthlyPrice}</p>
-                      <p className="text-6xl font-normal text-gray-800">/</p>
-                      <div className="flex items-end justify-end">
-                        <p className="text-sm font-normal text-gray-800">monthly</p>
-                      </div>
-                    </div>
-                    <button className="text-lg font-semibold text-white bg-pink-500 w-full py-2 rounded-lg cursor-pointer transition-colors duration-300 hover:bg-pink-400">Get Started</button>
+                    <AnimatePresence mode="wait">
+                      <motion.div key={acitveCurrentPlan} initial={{ 1: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} transition={{ duration: 0.2 }} className="flex items-center">
+                        <p className="text-3xl font-semibold text-black">$</p>
+                        <p className="text-6xl font-semibold text-black">{acitveCurrentPlan === "monthly" ? `${item?.monthlyPrice}` : `${item?.yearlyPrice}`}</p>
+                        <p className="text-6xl font-normal text-gray-800">/</p>
+                        <div className="flex flex-col gap-1">
+                          <p className="text-sm font-normal text-gray-800">{acitveCurrentPlan === "monthly" ? "monthly" : "yearly"}</p>
+                          <p className={`text-lg font-semibold bg-pink-500 text-white p-1 px-3 rounded-lg ${acitveCurrentPlan === "yearly" ? "block" : "hidden"}`}>{item?.discountPercentage}% off</p>
+                        </div>
+                      </motion.div>
+                    </AnimatePresence>
+                    <button className="text-lg font-semibold text-white bg-pink-500 w-full py-2 rounded-lg cursor-pointer transition-colors duration-300 hover:bg-pink-600">Get Started</button>
                     <div className="w-full h-0.5 bg-gray-400" />
                     <div className="flex flex-col gap-3 w-full">
                       {
