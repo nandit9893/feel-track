@@ -95,12 +95,12 @@ const Header = ({ headerData }) => {
       </div>
 
        {/* for mobile */}
-       <div className="bg-[#111827] w-sm sm:w-xl mx-auto my-5 rounded-full md:hidden block overflow-hidden border border-white">
+       <div className="bg-[#111827] w-xs sm:w-xl mx-auto my-5 rounded-full md:hidden block overflow-hidden border border-white">
         <div className="flex justify-between w-full items-center py-2 px-5">
           <Image src="/feel-track.png" alt="FeelTrack Logo" width={500} height={500} className="w-10 rounded-full" priority unoptimized quality={100} />
           <Menu onClick={()=>setIsSideBarOpenMobile(true)} className="w-8 h-8 text-pink-500 cursor-pointer" />
         </div>
-        <div className={`w-full sm:w-sm h-screen bg-black fixed top-0 left-0 z-50 shadow-lg flex flex-col p-10 gap-5 transition-all duration-300 ${ isSideBarOpenMobile ? "translate-x-0" : "-translate-x-full"}`}>
+        <div className={`w-60 sm:w-sm h-screen bg-black fixed top-0 left-0 z-50 shadow-lg flex flex-col p-10 gap-5 transition-all duration-300 ${ isSideBarOpenMobile ? "translate-x-0" : "-translate-x-full"}`}>
           <div className="flex justify-end w-full">
             <X onClick={()=>setIsSideBarOpenMobile(false)} className="w-8 h-8 transition-transform duration-300 hover:rotate-180 text-pink-500 cursor-pointer" />
           </div>

@@ -40,9 +40,9 @@ const Features = ({ featuresData }) => {
                     <ChevronDown className={`text-pink-500 h-5 w-5 transition-transform duration-300 ${currentItem === item?._id ? "rotate-180" : "rotate-0"}`} />
                   </div>
                   <div className={`transition-all duration-300 ease-in-out overflow-hidden ${currentItem === item?._id ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
-                    <div className="flex gap-5 w-full items-center">
+                    <div className="flex gap-5 sm:flex-row flex-col w-full items-center">
                       <p className="text-lg font-normal text-white">{item?.description}</p>
-                      <Image src={item?.imageURL} alt={item.title} width={500} height={500} className="w-full h-56 rounded-2xl object-cover" priority unoptimized quality={100} />
+                      <Image src={item?.imageURL} alt={item.title} width={500} height={500} className="w-full h-56 object-contain" priority unoptimized quality={100} />
                     </div>
                   </div>
                 </div>

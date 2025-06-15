@@ -5,19 +5,19 @@ import { motion } from "framer-motion";
 
 const CTASection = ({ ctaData, aboutPlanData }) => {
   return (
-    <div className="w-full bg-black h-full flex flex-col gap-40 py-20">
+    <div className="w-full bg-black h-full flex flex-col gap-40 py-20 lg:px-0 px-5 md:px-10">
       <div className="max-w-5xl h-full mx-auto">
-        <div className="w-full bg-[#0F0F0F] h-full flex justify-between rounded-xl">
-          <div className="flex flex-col gap-10 p-10 w-full justify-center items-center">
-            <motion.p initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text text-3xl font-medium edu-cursive leading-[57px]">{ctaData?.description}</motion.p>
+        <div className="w-full bg-[#0F0F0F] h-full flex lg:flex-row flex-col justify-between items-center rounded-xl">
+          <div className="flex flex-col gap-10 p-5 sm:p-10 w-full justify-center items-center">
+            <motion.p initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text text-xl sm:text-2xl md:text-3xl font-medium edu-cursive leading-[57px]">{ctaData?.description}</motion.p>
             <motion.button initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} className="transition-colors duration-300 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-normal py-3 px-5 text-xl">{ctaData?.button?.title}</motion.button>
           </div>
-          <Image src={ctaData?.imageURL} alt="FeelTrack Logo" width={500} height={500} className="w-96 rounded-r-xl" priority unoptimized quality={100} />
+          <Image src={ctaData?.imageURL} alt="FeelTrack Logo" width={500} height={500} className="w-96 rounded-xl lg:rounded-r-xl" priority unoptimized quality={100} />
         </div>
       </div>
       <div className="max-w-5xl mx-auto">
-        <div className="flex justify-between w-full gap-10">
-          <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} className="flex flex-col gap-8 w-1/2 justify-center">
+        <div className="flex justify-between md:flex-row flex-col w-full gap-10">
+          <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} className="flex flex-col gap-8 w-full md:w-1/2 justify-center">
             <div className="w-full">
               <h2 className="text-4xl font-bold text-white">{aboutPlanData?.heading?.firstSubHeading}{" "}
                 <span className="text-pink-500">{aboutPlanData?.heading?.secondSubHeading}</span>
@@ -45,24 +45,24 @@ const CTASection = ({ ctaData, aboutPlanData }) => {
               <p className="text-sm text-gray-400">{aboutPlanData?.button?.subheading}</p>
             </div>
           </motion.div>
-          <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} className="h-full w-1/2 flex flex-col gap-10">
+          <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} className="h-full w-full md:w-1/2 flex flex-col gap-10">
             <div className="w-full h-full p-1 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 overflow-hidden">
               <Image src={aboutPlanData?.imageURL} alt="FeelTrack Logo" width={500} height={500} className="rounded-xl w-full" priority unoptimized quality={100} />
             </div>
             <div className="flex flex-col gap-5 w-full items-center">
               <h4 className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text text-4xl font-medium">Our Plans</h4>
-              <div className="flex gap-5 w-full items-center">
+              <div className="flex gap-5 sm:flex-row flex-col w-full items-center">
                 <div className="flex flex-col gap-1 w-full bg-gradient-to-bl from-pink-500 to-purple-500 items-center rounded-tl-4xl rounded-br-4xl border-2 border-white py-2.5">
-                  <p className="text-white font-semibold text-xl">Basic</p>
-                  <p className="text-white font-medium text-lg">$20/month</p>
+                  <p className="text-white font-semibold tex-lg sm:text-xl">Basic</p>
+                  <p className="text-white font-medium text-base sm:text-lg">$20/month</p>
                 </div>
                 <div className="flex flex-col gap-1 w-full bg-gradient-to-bl from-pink-500 to-purple-500 items-center rounded-tl-4xl rounded-br-4xl border-2 border-white py-2.5">
-                  <p className="text-white font-semibold text-xl">Advanced</p>
-                  <p className="text-white font-medium text-lg">$50/month</p>
+                  <p className="text-white font-semibold tex-lg sm:text-xl">Advanced</p>
+                  <p className="text-white font-medium text-base sm:text-lg">$50/month</p>
                 </div>
                 <div className="flex flex-col gap-1 w-full bg-gradient-to-bl from-pink-500 to-purple-500 items-center rounded-tl-4xl rounded-br-4xl border-2 border-white py-2.5">
-                  <p className="text-white font-semibold text-xl">Premium</p>
-                  <p className="text-white font-medium text-lg">$80/month</p>
+                  <p className="text-white font-semibold tex-lg sm:text-xl">Premium</p>
+                  <p className="text-white font-medium text-base sm:text-lg">$80/month</p>
                 </div>
               </div>
             </div>

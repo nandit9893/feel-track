@@ -42,7 +42,6 @@ const VerifyUser = () => {
 
   const handleResend = async (event) => {
     event.preventDefault();
-    // Add resend OTP logic here
     setTimeLeft(59);
   };
 

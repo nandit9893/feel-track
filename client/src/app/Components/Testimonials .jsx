@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
@@ -81,28 +81,27 @@ const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
 
+  const currentTestimonial = testimonials[currentIndex];
+  const length = testimonials.length;
+  const firstHalf = testimonials.slice(0, Math.ceil(length / 2));
+  const secondHalf = testimonials.slice(Math.ceil(length / 2), length);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, 30000); // 30 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   const handleLeft = () => {
     setDirection(-1);
-    setCurrentIndex((prev) =>
-      prev === 0 ? testimonials.length - 1 : prev - 1
-    );
+    setCurrentIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
   };
 
   const handleRight = () => {
     setDirection(1);
-    setCurrentIndex((prev) =>
-      prev === testimonials.length - 1 ? 0 : prev + 1
-    );
-  };
-
-  const handleLeftAvatar = (index) => {
-    setDirection(index > currentIndex ? 1 : -1);
-    setCurrentIndex(index);
-  };
-
-  const handleRightAvatar = (index) => {
-    setDirection(index > currentIndex ? 1 : -1);
-    setCurrentIndex(index);
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
   };
 
   const variants = {
@@ -120,31 +119,27 @@ const Testimonials = () => {
     }),
   };
 
-  const currentTestimonial = testimonials[currentIndex];
-  const length = testimonials.length;
-  const firstHalf = testimonials.slice(0, Math.ceil(length / 2));
-  const secondHalf = testimonials.slice(Math.ceil(length / 2), length);
-
   return (
     <div className="bg-black w-full h-full">
-      <div className="max-w-7xl mx-auto flex flex-col gap-10 py-20 lg:px-0 px-10">
-        <h4 className="text-7xl font-semibold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">What our customers say?</h4>
+      {/* Desktop */}
+      <div className="md:flex hidden max-w-7xl mx-auto flex-col gap-10 py-20 lg:px-0 px-10">
+        <h4 className="text-6xl lg:text-7xl font-semibold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">What our customers say?</h4>
         <div className="w-3xl mx-auto h-[60vh] bg-gradient-to-r from-purple-600 to-pink-300 relative rounded-3xl">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full p-10 text-center">
             <AnimatePresence custom={direction} mode="wait">
-              <motion.p key={currentTestimonial._id} custom={direction} variants={variants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.2 }} className="text-3xl font-medium edu-cursive text-white leading-[57px]">"{currentTestimonial.description}"</motion.p>
+              <motion.p key={currentTestimonial?._id} custom={direction} variants={variants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.3 }} className="text-3xl font-medium edu-cursive text-white leading-[57px]">"{currentTestimonial?.description}"</motion.p>
             </AnimatePresence>
           </div>
-          <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} onClick={handleLeft} className="absolute -left-10 top-1/2 w-14 h-14 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 flex items-center justify-center">
+          <div onClick={handleLeft} className="absolute -left-10 top-1/2 w-14 h-14 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 flex items-center justify-center">
             <ChevronLeft className="text-white w-10 h-10 cursor-pointer" />
-          </motion.div>
-          <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} onClick={handleRight} className="absolute -right-10 top-1/2 w-14 h-14 rounded-2xl bg-gradient-to-r from-pink-300 to-purple-500 flex items-center justify-center">
+          </div>
+          <div onClick={handleRight} className="absolute -right-10 top-1/2 w-14 h-14 rounded-2xl bg-gradient-to-r from-pink-300 to-purple-500 flex items-center justify-center">
             <ChevronRight className="text-white w-10 h-10 cursor-pointer" />
-          </motion.div>
+          </div>
           <div className="absolute -bottom-14 left-1/2 transform -translate-x-1/2 w-28 h-28 p-2 bg-black rounded-full overflow-hidden">
             <AnimatePresence mode="wait">
-              <motion.div key={currentTestimonial._id} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0, opacity: 0 }} transition={{ duration: 0.4 }} className="w-full h-full rounded-full overflow-hidden">
-                <Image src={currentTestimonial.image} alt={currentTestimonial.name} width={500} height={500} className="w-full h-full rounded-full object-cover" priority unoptimized quality={100} />
+              <motion.div key={currentTestimonial?._id} initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0, opacity: 0 }} transition={{ duration: 0.4 }} className="w-full h-full rounded-full overflow-hidden">
+                <Image src={currentTestimonial?.image} alt={currentTestimonial?.name} width={500} height={500} className="w-full h-full rounded-full object-cover" priority unoptimized quality={100}/>
               </motion.div>
             </AnimatePresence>
           </div>
@@ -152,27 +147,46 @@ const Testimonials = () => {
         <div className="flex gap-5 w-full items-center justify-center">
           {
             firstHalf.map((item, index) => (
-              <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} onClick={() => handleLeftAvatar(index)} className="w-16 h-16 rounded-full cursor-pointer" key={item._id}>
+              <div key={item?._id} onClick={() => setCurrentIndex(index)} className="w-16 h-16 rounded-full cursor-pointer">
                 <div className="p-1 rounded-full bg-gradient-to-r from-pink-500 to-purple-600">
-                  <Image src={item.image} alt={item.name} width={500} height={500} className="w-full h-full rounded-full object-cover" priority unoptimized quality={100} />
+                  <Image src={item?.image} alt={item?.name} width={500} height={500} className="w-full h-full rounded-full object-cover" priority unoptimized quality={100} />
                 </div>
-              </motion.div>
+              </div>
             ))
           }
           <div className="flex flex-col gap-3 w-40 items-center h-8 relative overflow-hidden">
             <AnimatePresence mode="wait">
-              <motion.p key={currentTestimonial._id} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} transition={{ duration: 0.4 }} className="text-lg font-semibold text-white absolute">{currentTestimonial.name}</motion.p>
+              <motion.p key={currentTestimonial?._id} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} transition={{ duration: 0.4 }} className="text-lg font-semibold text-white absolute">{currentTestimonial.name}</motion.p>
             </AnimatePresence>
           </div>
           {
             secondHalf.map((item, index) => (
-              <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} onClick={() => handleRightAvatar(index + firstHalf.length)} className="w-16 h-16 rounded-full cursor-pointer" key={item._id}>
+              <div key={item._id} onClick={() => setCurrentIndex(index + firstHalf.length)} className="w-16 h-16 rounded-full cursor-pointer">
                 <div className="p-1 rounded-full bg-gradient-to-r from-pink-500 to-purple-600">
                   <Image src={item.image} alt={item.name} width={500} height={500} className="w-full h-full rounded-full object-cover" priority unoptimized quality={100} />
                 </div>
-              </motion.div>
+              </div>
             ))
           }
+        </div>
+      </div>
+
+      {/* Mobile */}
+      <div className="md:hidden block w-full">
+        <div className="px-5 flex flex-col gap-8 w-full overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div key={currentTestimonial.name} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ duration: 0.5 }} className="flex flex-col gap-2 w-full h-40 items-center bg-slate-900 p-4 py-5 rounded-xl border border-gray-500">
+              <p className="text-white font-semibold">{currentTestimonial.name}</p>
+              <p className="text-gray-300 font-normal">{currentTestimonial.description}</p>
+            </motion.div>
+          </AnimatePresence>
+          <div className="flex h-8 gap-2 w-full items-center justify-center">
+            {
+              testimonials.map((_, index) => (
+                <div key={index} onClick={() => setCurrentIndex(index)} className={`rounded-full cursor-pointer transition-all duration-300 ${currentIndex === index ? "bg-pink-500 scale-110 w-5 h-5" : "bg-gray-600 w-4 h-4"}`}></div>
+              ))
+            }
+          </div>
         </div>
       </div>
     </div>

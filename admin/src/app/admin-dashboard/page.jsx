@@ -22,21 +22,21 @@ const Admin = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (currentAdmin === null) {
-  //     router.push("/");
-  //     return;
-  //   }
-  //   setIsAuthorized(true);
-  // }, [currentAdmin, router]);
+  useEffect(() => {
+    if (currentAdmin === null) {
+      router.push("/");
+      return;
+    }
+    setIsAuthorized(true);
+  }, [currentAdmin, router]);
 
-  // if (!isAuthorized) {
-  //   return (
-  //     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-  //       <Loader size={40} color="#3b82f6" />
-  //     </div>
-  //   );
-  // }
+  if (!isAuthorized) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+        <Loader size={40} color="#3b82f6" />
+      </div>
+    );
+  };
 
   return (
     <div className="w-full h-screen flex">
