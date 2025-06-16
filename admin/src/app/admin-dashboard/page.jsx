@@ -1,53 +1,65 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
-import Loader from "../Components/Loader";
-import SideBar from "../Components/SideBar";
-import pages from "../utils/admin.sidebar.pages";
+import React from "react";
+import AdminDashboard from "./AdminDashboards";
 
-const Admin = () => {
-  const [isAuthorized, setIsAuthorized] = useState(false);
-  const router = useRouter();
-  const { loading, error, showError, currentAdmin } = useSelector((state) => state?.admin);
-  const [currentPage, setCurrentPage] = useState(null);
-  const [currentComponent, setCurrentComponent] = useState(null);
-  const [width, setWidth] = useState(false);
-
-  const togglePages = (item) => {
-    if(currentPage === item._id) {
-        setCurrentPage(null);
-    } else {
-        setCurrentPage(item._id);
-    }
-  };
-
-  useEffect(() => {
-    if (currentAdmin === null) {
-      router.push("/");
-      return;
-    }
-    setIsAuthorized(true);
-  }, [currentAdmin, router]);
-
-  if (!isAuthorized) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-        <Loader size={40} color="#3b82f6" />
-      </div>
+const getHomeHeroSectinData = async () => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/home/hero`,
+      { next: { revalidate: 300 } }
     );
-  };
+    if (!response.ok) {
+      throw new Error("Failed to fetch home hero section data");
+    }
+    const data = await response.json();
+    return data?.data || [];
+  } catch (error) {
+    return [];
+  }
+};
+
+const getHomeHowItWorksSectionData = async () => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/home/get/how/works`,
+      { next: { revalidate: 300 } }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+    const data = await response.json();
+    return data?.data || [];
+  } catch (error) {
+    return [];
+  }
+};
+
+const getFeaturesSectionData = async () => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/home/get/features`,
+      { next: { revalidate: 300 } }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch featue section data");
+    }
+    const data = await response.json();
+    return data?.data || [];
+  } catch (error) {
+    return [];
+  }
+};
+
+
+const page = async () => {
+  const homeHeroSectionData = await getHomeHeroSectinData();
+  const howHomeItWorksData = await getHomeHowItWorksSectionData();
+  const featuresData = await getFeaturesSectionData();
 
   return (
-    <div className="w-full h-screen flex">
-      <div className="w-1/5 h-full">
-        <SideBar width={width} setWidth={setWidth} pages={pages} togglePages={togglePages} currentPage={currentPage} currentComponent={currentComponent} />
-      </div>
-      {/* <div className="w-4/5 h-full">
-        <iframe src="https://feel-track.vercel.app/" className="w-full h-full border-0" title="Feel Track Application" allow="accelerometer; autoplay; camera; clipboard-read; clipboard-write; encrypted-media; fullscreen; geolocation; gyroscope; magnetometer; microphone; midi; payment; picture-in-picture; web-share" loading="lazy" />
-      </div> */}
+    <div>
+      <AdminDashboard homeHeroSectionData={homeHeroSectionData} howHomeItWorksData={howHomeItWorksData} featuresData={featuresData} />
     </div>
   );
 };
 
-export default Admin;
+export default page;

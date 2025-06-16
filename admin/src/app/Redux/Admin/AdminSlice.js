@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
@@ -6,6 +6,12 @@ const initialState = {
   error: null,
   loading: false,
   showError: false,
+  currentPage: null,
+  currentPageID: null,
+  currentPageTitle: null,
+  currentComponent: null,
+  currentComponentID: null,
+  currentComponentTitle: null,
 };
 
 const adminSlice = createSlice({
@@ -36,6 +42,12 @@ const adminSlice = createSlice({
       state.loading = false;
       state.error = null;
       state.showError = false;
+      state.currentPage = null;
+      state.currentPageID = null;
+      state.currentPageTitle = null;
+      state.currentComponent = null;
+      state.currentComponentID = null;
+      state.currentComponentTitle = null;
     },
     logoutUserFailure: (state, action) => {
       state.error = action.payload;
@@ -48,7 +60,7 @@ const adminSlice = createSlice({
     },
     verifyOtpSuccess: (state, action) => {
       state.loading = false;
-      state.currentAdmin = action.payload; 
+      state.currentAdmin = action.payload;
       state.error = null;
       state.showError = false;
     },
@@ -70,6 +82,44 @@ const adminSlice = createSlice({
       state.error = action.payload;
       state.showError = true;
     },
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload;
+    },
+    setCurrentPageID: (state, action) => {
+      state.currentPageID = action.payload;
+    },
+    setCurrentPageTitle: (state, action) => {
+      state.currentPageTitle = action.payload;
+    },
+    setCurrentComponent: (state, action) => {
+      state.currentComponent = action.payload;
+    },
+    setCurrentComponentID: (state, action) => {
+      state.currentComponentID = action.payload;
+    },
+    setCurrentComponentTitle: (state, action) => {
+      state.currentComponentTitle = action.payload;
+    },
+    setPageInfo: (state, action) => {
+      const { page, pageID, pageTitle } = action.payload;
+      state.currentPage = page;
+      state.currentPageID = pageID;
+      state.currentPageTitle = pageTitle;
+    },
+    setComponentInfo: (state, action) => {
+      const { component, componentID, componentTitle } = action.payload;
+      state.currentComponent = component;
+      state.currentComponentID = componentID;
+      state.currentComponentTitle = componentTitle;
+    },
+    resetNavigation: (state) => {
+      state.currentPage = null;
+      state.currentPageID = null;
+      state.currentPageTitle = null;
+      state.currentComponent = null;
+      state.currentComponentID = null;
+      state.currentComponentTitle = null;
+    },
   },
 });
 
@@ -86,6 +136,15 @@ export const {
   resendOtpStart,
   resendOtpSuccess,
   resendOtpFailure,
+  setCurrentPage,
+  setCurrentPageID,
+  setCurrentPageTitle,
+  setCurrentComponent,
+  setCurrentComponentID,
+  setCurrentComponentTitle,
+  setPageInfo,
+  setComponentInfo,
+  resetNavigation,
 } = adminSlice.actions;
 
 export default adminSlice.reducer;
