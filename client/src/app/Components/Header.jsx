@@ -40,7 +40,7 @@ const Header = ({ headerData }) => {
     <header className="fixed top-0 left-0 w-full z-50">
 
       {/* for laptop */}
-      <div className="bg-[#111827] mx-auto p-2 lg:p-3 px-8 my-5 w-3xl lg:w-5xl border border-white rounded-full hidden md:block overflow-hidden">
+      <div className="bg-[#111827] mx-auto p-2 lg:p-3 px-8 my-5 w-2xl lg:w-5xl border border-white rounded-full hidden md:block overflow-hidden">
         <div className="flex justify-between w-full items-center">
           <Link href="/">
             <Image src={headerData?.logo} alt="FeelTrack Logo" width={500} height={500} className="w-8 lg:w-12 h-8 lg:h-12 rounded-2xl" priority unoptimized quality={100} />

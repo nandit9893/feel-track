@@ -49,15 +49,56 @@ const getFeaturesSectionData = async () => {
   }
 };
 
+const getCTASectionData = async () => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/home/get/cta`,
+      { next: { revalidate: 300 } }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch cta section data");
+    }
+    const data = await response.json();
+    return data?.data || [];
+  } catch (error) {
+    return [];
+  }
+};
+
+const getAboutPlanSectionData = async () => {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/home/get/about/plan`,
+      { next: { revalidate: 300 } }
+    );
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch CTA data: ${response.status} ${response.statusText}`
+      );
+    }
+    const data = await response.json();
+    return data?.data || [];
+  } catch (error) {
+    return [];
+  }
+};
 
 const page = async () => {
   const homeHeroSectionData = await getHomeHeroSectinData();
   const howHomeItWorksData = await getHomeHowItWorksSectionData();
   const featuresData = await getFeaturesSectionData();
+  const ctaData = await getCTASectionData();
+  const aboutPlanData = await getAboutPlanSectionData();
 
   return (
     <div>
-      <AdminDashboard homeHeroSectionData={homeHeroSectionData} howHomeItWorksData={howHomeItWorksData} featuresData={featuresData} />
+      <AdminDashboard
+        ctaData={ctaData}
+        homeHeroSectionData={homeHeroSectionData}
+        howHomeItWorksData={howHomeItWorksData}
+        featuresData={featuresData}
+        aboutPlanData={aboutPlanData}
+      />
     </div>
   );
 };

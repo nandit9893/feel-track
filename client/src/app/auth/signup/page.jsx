@@ -80,7 +80,7 @@ const SignUp = () => {
               <p className="text-lg font-normal sm:font-semibold text-white sm:text-gray-800">Name</p>
               <div className="flex justify-between items-center w-full gap-3">
                 <User className="w-5 h-5 text-gray-300 sm:text-black flex-shrink-0" />
-                <input required name="fullName" onChange={inputChangeHandler} value={signUpFormData.fullName} type="text" className="text-black text-[16px] w-full font-light placeholder:text-gray-400 outline-none border-none bg-transparent" placeholder="Name" />
+                <input required name="fullName" onChange={inputChangeHandler} value={signUpFormData.fullName} type="text" className="text-white sm:text-black text-[16px] w-full font-light placeholder:text-gray-400 outline-none border-none bg-transparent" placeholder="Name" />
               </div>
               <hr className="w-full h-0.5 bg-gray-200" />
             </div>
@@ -88,7 +88,7 @@ const SignUp = () => {
               <p className="text-lg font-normal sm:font-semibold text-white sm:text-gray-800">Email</p>
               <div className="flex justify-between items-center w-full gap-3">
                 <Mail className="w-5 h-5 text-gray-300 sm:text-black flex-shrink-0" />
-                <input required name="email" onChange={inputChangeHandler} value={signUpFormData.email} type="email" className="text-black text-[16px] w-full font-light placeholder:text-gray-400 outline-none border-none bg-transparent" placeholder="Email" />
+                <input required name="email" onChange={inputChangeHandler} value={signUpFormData.email} type="email" className="text-white sm:text-black text-[16px] w-full font-light placeholder:text-gray-400 outline-none border-none bg-transparent" placeholder="Email" />
               </div>
               <hr className="w-full h-0.5 bg-gray-200" />
             </div>
@@ -96,7 +96,7 @@ const SignUp = () => {
               <p className="text-lg font-normal sm:font-semibold text-white sm:text-gray-800">Password</p>
               <div className="flex justify-between items-center w-full gap-3">
                 <Lock className="w-5 h-5 text-gray-300 sm:text-black flex-shrink-0" />
-                <input required name="password" onChange={inputChangeHandler} value={signUpFormData.password} type={passwordVisible ? "text" : "password"} className="text-black text-[16px] w-full font-light placeholder:text-gray-400 outline-none border-none bg-transparent" placeholder="Password"/>
+                <input required name="password" onChange={inputChangeHandler} value={signUpFormData.password} type={passwordVisible ? "text" : "password"} className="text-white sm:text-black text-[16px] w-full font-light placeholder:text-gray-400 outline-none border-none bg-transparent" placeholder="Password"/>
                 {
                   passwordVisible ? 
                   (

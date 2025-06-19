@@ -5,7 +5,6 @@ import user_verification_template from "../utils/templates/user.verification.tem
 const userVerification = async (fullName, email) => {
   try {
     const verificationCode = Math.floor(100000 + Math.random() * 900000);
-
     const transporter = nodemailer.createTransport({
       service: "gmail",
       secure: true,
@@ -15,14 +14,12 @@ const userVerification = async (fullName, email) => {
         pass: process.env.NODE_MAILER_PASSWORD,
       },
     });
-
     const otpEntry = new OTP({
       otp: verificationCode,
       email,
       fullName,
     });
     await otpEntry.save();
-
     const mailOptions = {
       from: `"Feel Track" <${process.env.NODE_MAILER_USER}>`,
       to: email,
@@ -30,7 +27,6 @@ const userVerification = async (fullName, email) => {
       text: `Hello ${fullName},\n\nThis is the OTP for verification, valid for 5 minutes only:\n\n${verificationCode}`,
       html: user_verification_template(fullName, verificationCode),
     };
-
     await transporter.sendMail(mailOptions);
     return { success: true, message: "OTP sent successfully" };
   } catch (error) {

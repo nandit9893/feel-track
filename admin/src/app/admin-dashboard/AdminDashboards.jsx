@@ -9,7 +9,7 @@ import { setPageInfo, setComponentInfo, resetNavigation } from "../Redux/Admin/A
 import Home from "../Components/Home/Home";
 import About from "../Components/About/About";
 
-const AdminDashboard = ({ homeHeroSectionData, howHomeItWorksData, featuresData }) => {
+const AdminDashboard = ({ homeHeroSectionData, howHomeItWorksData, featuresData, ctaData, aboutPlanData }) => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -56,13 +56,13 @@ const AdminDashboard = ({ homeHeroSectionData, howHomeItWorksData, featuresData 
     setIsAuthorized(true);
   }, [currentAdmin, router]);
 
-  // if (!isAuthorized) {
-  //   return (
-  //     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-  //       <Loader size={40} color="#3b82f6" />
-  //     </div>
-  //   );
-  // }
+  if (!isAuthorized) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+        <Loader size={40} color="#3b82f6" />
+      </div>
+    );
+  }
 
   return (
     <div className="w-full h-screen flex">
@@ -71,7 +71,7 @@ const AdminDashboard = ({ homeHeroSectionData, howHomeItWorksData, featuresData 
       </div>
       <hr className="w-[1px] h-screen bg-gray-400" />
       <div className="w-4/5 h-full overflow-y-auto">
-        { currentPageTitle === "Home" && <Home homeHeroSectionData={homeHeroSectionData} howHomeItWorksData={howHomeItWorksData} featuresData={featuresData} /> }
+        { currentPageTitle === "Home" && <Home homeHeroSectionData={homeHeroSectionData} howHomeItWorksData={howHomeItWorksData} featuresData={featuresData} ctaData={ctaData} aboutPlanData={aboutPlanData} /> }
         { currentPageTitle === "About" && <About /> }
       </div>
     </div>

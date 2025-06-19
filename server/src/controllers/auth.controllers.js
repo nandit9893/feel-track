@@ -30,31 +30,15 @@ const signUp = async (req, res) => {
         message: "Account already exists",
       });
     }
-    const newUser = await User.create({
-      email,
-      fullName,
-      password,
-    });
-    const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
-      newUser._id
-    );
     await userVerification(fullName, email);
-    newUser.refreshToken = refreshToken;
-    await newUser.save({ validateBeforeSave: false });
-    const createdUser = await User.findById(newUser._id).select(
-      "-password -refreshToken"
-    );
-    res.clearCookie("jwt");
-    res.cookie("jwt", accessToken, {
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
-      sameSite: "strict",
-      secure: process.env.NODE_ENV === "production",
-    });
     return res.status(201).json({
       success: true,
-      message: "Account created successfully",
-      data: createdUser,
+      message: "OTP sent successfully",
+      data: {
+        fullName,
+        email,
+        password,
+      }
     });
   } catch (error) {
     return res.status(500).json({

@@ -15,7 +15,7 @@ const HeroSection = ({ homeHeroSectionData }) => {
   }, [homeHeroSectionData]);
 
   return (
-    <div id="homehero" className="w-full bg-neutral-800 h-full p-10 flex flex-col gap-5">
+    <div id="homehero" className="w-full bg-neutral-900 h-full p-10 flex flex-col gap-5">
       <div className="flex gap-1 w-full items-center">
         <h1 className="text-xl font-semibold text-neutral-300">Home</h1>
         <ChevronsRight className="text-white w-4 h-4" />

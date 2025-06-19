@@ -58,6 +58,7 @@ const VerifyUser = () => {
     const otpVerificationData = {
       fullName: currentUser?.fullName,
       email: currentUser?.email,
+      password: currentUser?.password,
       otp: otp.join(""), 
     }
     try {
@@ -83,7 +84,7 @@ const VerifyUser = () => {
   };
 
   useEffect(() => {
-    if (currentUser?.isVerified === true) {
+    if (currentUser === null) {
       router.push("/");
     }
   }, [currentUser, router]);

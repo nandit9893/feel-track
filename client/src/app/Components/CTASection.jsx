@@ -16,7 +16,7 @@ const CTASection = ({ ctaData, aboutPlanData }) => {
         </div>
       </div>
       <div className="max-w-5xl mx-auto">
-        <div className="flex justify-between md:flex-row flex-col w-full gap-10">
+        <div className="flex justify-between md:flex-row flex-col w-full gap-5 lg:gap-10">
           <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }} viewport={{ once: false, amount: 0.2 }} className="flex flex-col gap-8 w-full md:w-1/2 justify-center">
             <div className="w-full">
               <h2 className="text-4xl font-bold text-white">{aboutPlanData?.heading?.firstSubHeading}{" "}
@@ -51,7 +51,7 @@ const CTASection = ({ ctaData, aboutPlanData }) => {
             </div>
             <div className="flex flex-col gap-5 w-full items-center">
               <h4 className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text text-4xl font-medium">Our Plans</h4>
-              <div className="flex gap-5 sm:flex-row flex-col w-full items-center">
+              <div className="flex gap-5 lg:flex-row flex-col w-full items-center">
                 <div className="flex flex-col gap-1 w-full bg-gradient-to-bl from-pink-500 to-purple-500 items-center rounded-tl-4xl rounded-br-4xl border-2 border-white py-2.5">
                   <p className="text-white font-semibold tex-lg sm:text-xl">Basic</p>
                   <p className="text-white font-medium text-base sm:text-lg">$20/month</p>

@@ -122,9 +122,9 @@ const Testimonials = () => {
   return (
     <div className="bg-black w-full h-full">
       {/* Desktop */}
+      <h4 className="mb-5 lg:px-0 px-10 text-5xl md:text-6xl lg:text-7xl font-semibold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">What our customers say?</h4>
       <div className="md:flex hidden max-w-7xl mx-auto flex-col gap-10 py-20 lg:px-0 px-10">
-        <h4 className="text-6xl lg:text-7xl font-semibold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">What our customers say?</h4>
-        <div className="w-3xl mx-auto h-[60vh] bg-gradient-to-r from-purple-600 to-pink-300 relative rounded-3xl">
+        <div className="w-2xl lg:w-3xl mx-auto h-[60vh] bg-gradient-to-r from-purple-600 to-pink-300 relative rounded-3xl">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full p-10 text-center">
             <AnimatePresence custom={direction} mode="wait">
               <motion.p key={currentTestimonial?._id} custom={direction} variants={variants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.3 }} className="text-3xl font-medium edu-cursive text-white leading-[57px]">"{currentTestimonial?.description}"</motion.p>

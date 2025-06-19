@@ -1,5 +1,6 @@
 import User from "../models/users.models.js";
 import OTP from "../models/verify.user.otp.models.js";
+import generateAccessAndRefreshToken from "../utils/generatAccessRefreshToken.js";
 import userVerification from "./verify.user.controllers.js";
 
 const requestOTP = async (req, res) => {
@@ -38,9 +39,9 @@ const requestOTP = async (req, res) => {
 };
 
 const verifyOTP = async (req, res) => {
-  const { fullName, email, otp } = req.body;
+  const { fullName, email, otp, password } = req.body;
 
-  if (!otp || !email || !fullName) {
+  if (!otp || !email || !fullName || !password) {
     return res.status(400).json({
       success: false,
       message: "Please fill in all required fields.",
@@ -69,21 +70,40 @@ const verifyOTP = async (req, res) => {
       });
     }
     await OTP.deleteOne({ _id: existingOTP._id });
-    const user = await User.findOne({ email }).select(
+    const newUser = await User.create({
+      email,
+      fullName,
+      password,
+    });
+
+    const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
+      newUser._id
+    );
+
+    newUser.refreshToken = refreshToken;
+    await newUser.save({ validateBeforeSave: false });
+    const createdUser = await User.findById(newUser._id).select(
       "-password -refreshToken"
     );
-    if (!user) {
+    res.clearCookie("jwt");
+    res.cookie("jwt", accessToken, {
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+    });
+    if (!newUser) {
       return res.status(404).json({
         success: false,
         message: "User account not found.",
       });
     }
-    user.isVerified = true;
-    await user.save();
+    newUser.isVerified = true;
+    await newUser.save();
     return res.status(200).json({
       success: true,
-      message: "OTP verified successfully. Your account is now active.",
-      data: user,
+      message: "OTP verified successfully. Account created successfully.",
+      data: createdUser,
     });
   } catch (error) {
     return res.status(500).json({

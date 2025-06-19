@@ -26,11 +26,6 @@ const pages = [
       },
       {
         _id: 5,
-        title: "Testimonials",
-        link: "hometestimonial",
-      },
-      {
-        _id: 6,
         title: "CTA",
         link: "cta",
       },
