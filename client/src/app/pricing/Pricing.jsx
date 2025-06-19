@@ -25,13 +25,8 @@ const PricingPlans = ({ pricingData }) => {
   const [acitveCurrentPlan, setActiveCurrentPlan] = useState("monthly");
 
   return (
-    <div className="w-full bg-black h-[115vh] py-10">
-      <div className="relative overflow-hidden h-full">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-0 left-0 right-0 h-full bg-gradient-to-b from-black via-slate-900/10 to-green-900/40"></div>
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-900/20 via-transparent to-transparent"></div>
-        </div>
-       <div className="absolute inset-x-0 max-w-7xl mx-auto z-10 h-full">
+    <div className="w-full bg-black py-10 overflow-hidden">
+      <div className="max-w-7xl mx-auto">
         <div className="flex flex-col gap-10 w-full items-center h-full">
           <div className="relative flex items-center bg-slate-800 p-3 rounded-full gap-3">
             <div className={`absolute top-3 left-3 w-24 h-10 bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 rounded-full transition-transform duration-300 ease-in-out ${ acitveCurrentPlan === "yearly" ? "translate-x-28" : "translate-x-0"}`}/>
@@ -74,7 +69,6 @@ const PricingPlans = ({ pricingData }) => {
             }
           </div>
         </div>
-       </div>
       </div>
     </div>
   );

@@ -114,7 +114,7 @@ const TechStack = ({ techStackData }) => {
                 }
             </div>
             <div className="flex sm:hidden flex-col gap-3 w-full relative">
-              <div onClick={() => setSkillsSetMobile(!openSkillsMobile)} className="flex items-center justify-between bg-pink-500 rounded-md py-2 px-5 cursor-pointer w-full">
+              <div onClick={() => setSkillsSetMobile(!openSkillsMobile)} className="flex items-center justify-between bg-pink-400 rounded-md py-2 px-5 cursor-pointer w-full">
                 <p className="font-medium text-xl text-center text-white">{openSkillsMobileItems.find(item => item._id === activeTab)?.name || "Select"}</p>
                 <ChevronDown className="w-8 h-8 text-white" />
               </div>
