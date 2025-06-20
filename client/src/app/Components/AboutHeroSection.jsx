@@ -60,7 +60,7 @@ const AboutHeroSection = ({ heroData }) => {
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-green-800/25 via-green-900/15 to-transparent"></div>
       </div>
       <div className="absolute left-10 sm:left-20 top-32 w-xs sm:w-md z-30">
-        <h1 className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent text-2xl md:text-4xl font-semibold">{hero_heading_1?.[currentPhraseIndex]?.text?.substring(0, subIndexFirst)}|</h1>
+        <h1 className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent text-xl leading-[34px] md:text-4xl md:leading-[60px] font-semibold">{hero_heading_1?.[currentPhraseIndex]?.text?.substring(0, subIndexFirst)}|</h1>
       </div>
       <div className="relative top-0 z-20 flex flex-col items-center justify-center h-full px-6 max-w-4xl mx-auto">
         <Image src={heroData?.firstImageURL} alt="FeelTrack Logo" width={500} height={500} className="w-full rounded-2xl" priority unoptimized quality={100} />
@@ -71,7 +71,7 @@ const AboutHeroSection = ({ heroData }) => {
         </div>
       </div>
       <div className="absolute left-10 sm:left-auto sm:right-20 bottom-40 sm:bottom-20 lg:bottom-32 w-xs sm:w-md z-30">
-        <h1 className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent text-2xl md:text-4xl font-semibold">{hero_heading_2?.[currentPhraseIndexSecond]?.text?.substring(0, subIndexSecond)}|</h1>
+        <h1 className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent text-xl leading-[34px] md:text-4xl md:leading-[60px] font-semibold">{hero_heading_2?.[currentPhraseIndexSecond]?.text?.substring(0, subIndexSecond)}|</h1>
       </div>
       <svg className="absolute top-0 right-0 w-[600px] h-[600px] z-10" viewBox="0 0 400 400" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <defs>

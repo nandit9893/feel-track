@@ -51,7 +51,7 @@ const HowItWorks = ({ howHomeItWorksData }) => {
           <Pencil onClick={() => setEditHeading(true)} className="w-5 h-5 text-neutral-500 cursor-pointer hover:text-neutral-300" />
         </div>
       </div>
-      <p className="text-4xl underline font-normal text-neutral-300">Steps</p>
+      <p className="text-4xl leading-[60px] underline font-normal text-neutral-300">Steps</p>
       <div className="grid grid-cols-2 w-full gap-16 h-full">
         {
           steps?.map((step, index) => (

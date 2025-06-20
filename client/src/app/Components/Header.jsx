@@ -4,18 +4,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut, logoutUserFailure, logoutUserStart, logoutUserSuccess } from "../Redux/User/UserSlice";
 import { persistor } from "../Redux/Store";
 
 const Header = ({ headerData }) => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [isSideBarOpenMobile, setIsSideBarOpenMobile] = useState(false);
   const { loading, error, showError, currentUser } = useSelector((state) => state.user); 
   const pathname = usePathname();
 
   if (pathname === "/auth/login" || pathname === "/auth/signup" || pathname === "/auth/verify-user" || pathname === "/auth/forgot-password") {
     return null;
+  };
+
+  const navigateToLink = (item) => {
+    setIsSideBarOpenMobile(false);
+    router.push(`${item?.url}`)
   };
 
   const logOutUser = async () => {
@@ -48,7 +55,7 @@ const Header = ({ headerData }) => {
           <div className="flex items-center gap-5">
             {
               headerData?.middleMenuLinks?.map((item) => (
-                <Link key={item?._id} href={item?.url} className="text-white text-base lg:text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">{item?.name}</Link>
+                <Link key={item?._id} href={item?.url} className="text-white text-base lg:text-lg leading-[20px] lg:leading-[24px] font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">{item?.name}</Link>
               ))
             }
           </div>
@@ -106,7 +113,7 @@ const Header = ({ headerData }) => {
           </div>
           {
             headerData?.middleMenuLinks?.map((item) => (
-              <Link key={item?._id} href={item?.url} className="text-white text-base lg:text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">{item?.name}</Link>
+              <p onClick={()=>navigateToLink(item)} key={item?._id} className="text-white text-base lg:text-lg font-medium transition-colors duration-300 hover:text-pink-400 cursor-pointer">{item?.name}</p>
             ))
           }
           <Link href="/auth/login" className="w-20 group relative overflow-hidden bg-white/10 backdrop-blur-sm border border-white/20 text-white px-6 py-1 rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">

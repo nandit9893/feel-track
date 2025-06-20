@@ -90,10 +90,10 @@ const VerifyUser = () => {
   }, [currentUser, router]);
 
   return (
-    <div className="relative bg-slate-900 w-full h-screen flex items-center justify-center py-20 overflow-hidden">
+    <div className="relative bg-slate-900 w-full min-h-dvh flex items-center justify-center py-20 overflow-hidden">
       <div className="absolute top-20 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-      <div className="w-full max-w-md rounded-3xl bg-white shadow-2xl relative overflow-hidden p-10">
+      <div className="w-full max-w-md rounded-3xl sm:bg-white shadow-2xl relative overflow-hidden p-10">
         <div className="absolute -top-36 -right-40 w-40 h-40 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full translate-y-1/2 -translate-x-1/2"></div>
         <div className="flex flex-col w-full gap-5 relative z-10">
           {
@@ -105,23 +105,23 @@ const VerifyUser = () => {
           }          
           <div className="flex flex-col gap-2 w-full">
             <h2 className="text-2xl font-bold text-center text-gray-900">OTP verification</h2>
-            <p className="text-sm text-gray-600 text-center mt-2">Please enter the OTP (One-Time Password) sent to your registered email to complete your verification.</p>
+            <p className="text-sm text-gray-200 sm:text-gray-600 text-center mt-2">Please enter the OTP (One-Time Password) sent to your registered email to complete your verification.</p>
           </div>
           <div className="flex gap-2 items-center w-full justify-center">
             {
               otp.map((digit, idx) => (
                 <div key={idx} className="p-[2px] bg-slate-800 rounded-md focus-within:bg-gradient-to-r focus-within:from-purple-500 focus-within:to-pink-500 transition duration-300">
-                  <input type="text" id={`otp-${idx}`}value={digit} onChange={(e) => handleChange(e, idx)} onKeyDown={(e) => handleKeyDown(e, idx)} maxLength={1} className="w-12 h-12 bg-white rounded-md text-center text-lg border-none outline-none" disabled={loading} />
+                  <input type="text" id={`otp-${idx}`}value={digit} onChange={(e) => handleChange(e, idx)} onKeyDown={(e) => handleKeyDown(e, idx)} maxLength={1} className="w-10 sm:w-12 h-10 sm:h-12 bg-white rounded-md text-center text-lg border-none outline-none" disabled={loading} />
                 </div>
               ))
             }
           </div>
           <div className="flex justify-between w-full items-center">
             <div className="flex gap-1 items-center">
-              <p className="text-[16px] font-semibold text-black">Remaining time:</p>
-              <p className="text-[16px] font-semibold text-black">00:{timeLeft < 10 ? `0${timeLeft}` : timeLeft}s</p>
+              <p className="text-[16px] font-semibold text-gray-200 sm:text-black">Remaining time:</p>
+              <p className="text-[16px] font-semibold text-gray-200 sm:text-black">00:{timeLeft < 10 ? `0${timeLeft}` : timeLeft}s</p>
             </div>
-            <button onClick={handleResend} disabled={timeLeft !== 0 || loading} className={`font-medium ${timeLeft === 0 && !loading ? "text-blue-600 hover:underline" : "text-gray-400"}`}>Resend</button>
+            <button onClick={handleResend} disabled={timeLeft !== 0 || loading} className={`font-medium ${timeLeft === 0 && !loading ? "text-blue-600 hover:underline" : "text-gray-200"}`}>Resend</button>
           </div>
           <div className="flex flex-col gap-3">
             <button onClick={handleVerify} disabled={loading} className="cursor-pointer bg-gradient-to-r from-purple-500 to-pink-500 text-white py-2 font-semibold rounded-xl hover:opacity-90 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">Verify</button>

@@ -70,7 +70,7 @@ const SignUp = () => {
     <div className="relative bg-slate-900 w-full min-h-dvh flex items-center justify-center overflow-hidden">
       <div className="absolute top-20 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-      <div className="w-full max-w-md rounded-3xl sm:bg-white relative overflow-hidden">
+      <div className="w-full max-w-md rounded-3xl sm:bg-white shadow-2xl relative overflow-hidden">
         <div className="absolute bottom-0 -right-20 w-40 h-40 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full translate-y-1/2 -translate-x-1/2"></div>
         <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-full translate-y-1/2 -translate-x-1/2"></div>
         <div className="h-full w-full flex flex-col gap-1 p-5 py-10 relative z-10">

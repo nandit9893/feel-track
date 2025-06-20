@@ -12,7 +12,7 @@ const Footer = () => {
   };
   
   return (
-    <div className="w-full bg-black py-10 lg:px-0 px-5 md:px-10">
+    <div className="w-full bg-black py-10 lg:px-0 px-5 sm:px-10">
       <div className="max-w-7xl mx-auto bg-gradient-to-bl from-pink-500 to-purple-500 rounded-tl-[100px] rounded-br-[100px] p-10 py-20">
         <div className="flex flex-col gap-10 w-full">
           <div className="flex sm:flex-row flex-col gap-5 w-full">
@@ -21,11 +21,11 @@ const Footer = () => {
             </div>
             <div className="w-full sm:w-3/5 flex sm:flex-row flex-col gap-10 sm:gap-0 justify-between items-center">
               <div className="flex flex-col gap-3">
-                <p className="text-white text-base sm:text-lg md:text-xl font-semibold transition-colors duration-300 hover:text-purple-900 cursor-pointer">Home</p>
-                <p className="text-white text-base sm:text-lg md:text-xl font-semibold transition-colors duration-300 hover:text-purple-900 cursor-pointer">About</p>
-                <p className="text-white text-base sm:text-lg md:text-xl font-semibold transition-colors duration-300 hover:text-purple-900 cursor-pointer">Vision</p>
-                <p className="text-white text-base sm:text-lg md:text-xl font-semibold transition-colors duration-300 hover:text-purple-900 cursor-pointer">Features</p>
-                <p className="text-white text-base sm:text-lg md:text-xl font-semibold transition-colors duration-300 hover:text-purple-900 cursor-pointer">Try Now</p>
+                <p className="text-white text-base leading-[24px] md:text-lg md:leading-[27px] font-semibold transition-colors duration-300 hover:text-purple-900 cursor-pointer">Home</p>
+                <p className="text-white text-base leading-[24px] md:text-lg md:leading-[27px] font-semibold transition-colors duration-300 hover:text-purple-900 cursor-pointer">About</p>
+                <p className="text-white text-base leading-[24px] md:text-lg md:leading-[27px] font-semibold transition-colors duration-300 hover:text-purple-900 cursor-pointer">Vision</p>
+                <p className="text-white text-base leading-[24px] md:text-lg md:leading-[27px] font-semibold transition-colors duration-300 hover:text-purple-900 cursor-pointer">Features</p>
+                <p className="text-white text-base leading-[24px] md:text-lg md:leading-[27px] font-semibold transition-colors duration-300 hover:text-purple-900 cursor-pointer">Try Now</p>
               </div>
               <div className="w-full sm:ml-0 ml-20 sm:w-1/2 grid grid-cols-2 lg:grid-cols-4 gap-5">
                 <a href="https://www.facebook.com/nandit.sharma.399" target="_blank"><Facebook className="text-white cursor-pointer w-12 h-12 bg-slate-900 border-[2px] border-white p-2 rounded-2xl hover:text-pink-500 hover:shadow-[0_0_5px_2px_#8B5CF6] transition-colors duration-300" /></a>

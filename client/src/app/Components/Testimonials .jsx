@@ -122,12 +122,12 @@ const Testimonials = () => {
   return (
     <div className="bg-black w-full h-full">
       {/* Desktop */}
-      <h4 className="mb-5 lg:px-0 px-10 text-5xl md:text-6xl lg:text-7xl font-semibold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">What our customers say?</h4>
-      <div className="md:flex hidden max-w-7xl mx-auto flex-col gap-10 py-20 lg:px-0 px-10">
+      <div className="md:flex hidden max-w-7xl mx-auto flex-col gap-10 py-20 lg:px-0 sm-10">
+        <h4 className="text-6xl leading-[84px] font-medium bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">What our customers say?</h4>
         <div className="w-2xl lg:w-3xl mx-auto h-[60vh] bg-gradient-to-r from-purple-600 to-pink-300 relative rounded-3xl">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full p-10 text-center">
             <AnimatePresence custom={direction} mode="wait">
-              <motion.p key={currentTestimonial?._id} custom={direction} variants={variants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.3 }} className="text-3xl font-medium edu-cursive text-white leading-[57px]">"{currentTestimonial?.description}"</motion.p>
+              <motion.p key={currentTestimonial?._id} custom={direction} variants={variants} initial="enter" animate="center" exit="exit" transition={{ duration: 0.3 }} className="text-4xl leading-[60px] edu-cursive text-white">"{currentTestimonial?.description}"</motion.p>
             </AnimatePresence>
           </div>
           <div onClick={handleLeft} className="absolute -left-10 top-1/2 w-14 h-14 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 flex items-center justify-center">
@@ -156,7 +156,7 @@ const Testimonials = () => {
           }
           <div className="flex flex-col gap-3 w-40 items-center h-8 relative overflow-hidden">
             <AnimatePresence mode="wait">
-              <motion.p key={currentTestimonial?._id} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} transition={{ duration: 0.4 }} className="text-lg font-semibold text-white absolute">{currentTestimonial.name}</motion.p>
+              <motion.p key={currentTestimonial?._id} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -20, opacity: 0 }} transition={{ duration: 0.4 }} className="text-lg leading-[27px] font-semibold text-white absolute">{currentTestimonial.name}</motion.p>
             </AnimatePresence>
           </div>
           {
@@ -173,17 +173,18 @@ const Testimonials = () => {
 
       {/* Mobile */}
       <div className="md:hidden block w-full">
+        <h4 className="text-4xl leading-[60px] font-medium px-5 sm:px-10 mb-5 bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">What our customers say?</h4>
         <div className="px-5 flex flex-col gap-8 w-full overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div key={currentTestimonial.name} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ duration: 0.5 }} className="flex flex-col gap-2 w-full h-40 items-center bg-slate-900 p-4 py-5 rounded-xl border border-gray-500">
-              <p className="text-white font-semibold">{currentTestimonial.name}</p>
-              <p className="text-gray-300 font-normal">{currentTestimonial.description}</p>
+              <p className="text-white font-semibold text-lg leading-[27px]">{currentTestimonial.name}</p>
+              <p className="text-gray-300 font-normal text-base leading-[24px]">{currentTestimonial.description}</p>
             </motion.div>
           </AnimatePresence>
           <div className="flex h-8 gap-2 w-full items-center justify-center">
             {
               testimonials.map((_, index) => (
-                <div key={index} onClick={() => setCurrentIndex(index)} className={`rounded-full cursor-pointer transition-all duration-300 ${currentIndex === index ? "bg-pink-500 scale-110 w-5 h-5" : "bg-gray-600 w-4 h-4"}`}></div>
+                <div key={index} onClick={() => setCurrentIndex(index)} className={`rounded-full cursor-pointer transition-all duration-300 ${currentIndex === index ? "bg-pink-500 scale-110 w-4 h-4" : "bg-gray-600 w-3 h-3"}`}></div>
               ))
             }
           </div>

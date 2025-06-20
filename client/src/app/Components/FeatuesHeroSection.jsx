@@ -10,8 +10,8 @@ const FeatuesHeroSection = ({ featuresHeroData }) => {
         </div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
           <div className="flex flex-col gap-10 w-full items-center justify-center mt-20">
-            <h2 className="text-7xl font-semibold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">{featuresHeroData?.heading}</h2>
-            <p className="text-gray-300 font-normal text-2xl max-w-3xl text-center leading-[37px]">{featuresHeroData?.description}</p>
+            <h2 className="text-5xl md:text-6xl lg:text-7xl leading-[72px] md:leading-[84px] lg:leading-[96px] font-semibold bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">{featuresHeroData?.heading}</h2>
+            <p className="text-white font-semibold text-lg leading-[27px] md:text-xl md:leading-[34px] max-w-3xl text-center">{featuresHeroData?.description}</p>
           </div>
         </div>
       </div>
